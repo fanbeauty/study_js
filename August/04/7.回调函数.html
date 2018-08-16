@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调函数</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    //回调函数：把一个函数A当做一个值传递给另外一个函数B，这样在B函数执行的时候，可以再任何位置执行一到多次A方法
+    function A() {
+        console.log("A");
+    }
+
+    function B(callback) {
+        console.log("B");
+        callback();
+    }
+
+    B(A);
+
+</script>
+</body>
+</html>

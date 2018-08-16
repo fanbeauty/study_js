@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        #div1{
+            position: absolute;
+            top:50px;
+            left: 50%;
+            margin-left: -100px;
+            width: 200px;
+            height:300px;
+            background: lightgreen;
+
+        }
+        input{
+            display: block;
+            margin:5px auto;
+            outline: none;
+            width:200px;
+            height:35px;
+            border:1px solid green;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="操作">
+<div id="div1">
+</div>
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    //源码中有一行：
+    //->window.jQuery = window.$ = jQuery
+    //->selector:[string]选择器的类型 [object]JS原生对象（把原生对象转化为jQuery对象）[function]回调函数，相当于 $(document).ready(function(){})
+    //->context:document(传递的是一个原生JS对象上下文，如果是jQuery对象，它默认会被重构成选择器)
+    //->
+    //var jQuery = function (selector,context) {
+      //  return new jQuery.fn.init(selector,context);
+    //} //我们可以把这个理解为返回一个jQuery类的实例
+
+    //->jQuery选择器：创建jQuery这个类的一个实例
+
+    //->在jQuery这个类的原型上定义了很多属性和方法，而通过选择器获取的每一个实例都可以调用这些方法：属性 、CSS 、文档操作 、筛选 、动画  、事件
+    //$("*").css()
+
+    //->把jQuery当做一个普通对象，在它自己的属性上增加一些常用方法：Ajax 、工具 ......
+    //$.ajax()
+
+    //->extend:扩展，向jQuery这个类库中增加一些常用属性和方法  完善类库，给类库增加一些核心方法
+    //1)向jQuery属性上扩展（把它当做一个普通对象）
+    jQuery.extend({
+        aa:function () {
+            console.log("aa");
+        }
+    });
+    $.aa();
+    //2)向jquery原型上扩展（把它当做一个类） 编写一些基于jQuery插件
+    jQuery.prototype.extend({
+        bb:function () {
+            console.log("bb");
+        }
+    });
+    $().bb();
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

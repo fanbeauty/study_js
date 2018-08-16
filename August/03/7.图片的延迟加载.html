@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片延迟加载</title>
+</head>
+<style type="text/css">
+    *{
+        margin: 0px;
+        padding: 0px;
+        font-family: "Microsoft YaHei UI";
+        font-size: 16px;
+    }
+    .banner{
+        margin: 30px auto;
+        width:530px;
+        height:350px;
+        border:1px solid lightgreen;
+        background: url("load.gif") no-repeat center center lightgray;
+    }
+
+    .banner img{
+        display: none;/*在开始的时候IMG的SRC属性没有地址,这样的话在IE浏览器中容器中会显示一张碎图,不美观,所以我们让其默认是隐藏的,当真实的图片加载完成后在显示*/
+        width:100%;
+        height:100%;
+    }
+
+</style>
+<body>
+<!--
+    作用：保证页面打开的速度（3s之内如果页面打不开就已经算是死亡页面）
+    原理:
+        1）对于首屏内容中的图片：首先给对应的区域一张默认图片占用位置（默认图需要非常小，一般可以维持在5kb以内），
+        当首屏内容都加载完成后（或者也可以给一个延迟的时间），我在开始加载真实的图片。
+        2）对于其它屏中的图片：也是给一张默认的图片占位，当滚动条滚动到对应区域时，我们在开始加载真实的图片
+            扩展：数据的异步加载，开始只把前两屏的数据加载绑定出来，后面的数据不进行处理，当页面滚动到对应的区域的时候再重新请求数据
+            然后绑定渲染数据
+-->
+    <div class="banner" id="banner">
+        <img src="" trueImg="https://www.huany.top/Tanabata/huan3.jpeg">
+    </div>
+</body>
+<script type="text/javascript">
+    var banner = document.getElementById("banner");
+    var img = banner.getElementsByTagName("img")[0];
+    window.setTimeout(function () {
+        //imgFir.src = imgFir.getAttribute("trueImg");
+        //imgFir.style.display = "block";
+        //->以上处理还是不完整的：如果我们获取的真实图片地址是错误的，当赋值给IMG的SRC属性的时候,不仅控制台会报错,而且页面中会出现碎图/叉子图,影响视觉效果
+
+        //->获取图片的地址,验证地址的有效性,是有效的才赋值,不是有效的是不进行赋值处理的
+        //var oImg = document.createElement("img");
+        var oImage = new Image; //->创建一个临时的IMG标签
+        oImage.src = img.getAttribute("trueImg")
+        oImage.onload = function () { //->当图片能够正常加载
+            img.src = this.src;
+            img.style.display = "block";
+            oImage = null;
+        }
+    },500);
+</script>
+</html>

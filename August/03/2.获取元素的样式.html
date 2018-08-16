@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素的样式</title>
+</head>
+<style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #box {
+        margin: 20px;
+        padding: 20px;
+        height: 200px;
+        width: 200px;
+        border: 10px solid red;
+    }
+</style>
+<body>
+<div id="box">笑一个吧，功成名就不是目的，让自己快乐快乐这才叫做意义。</div>
+<script type="text/javascript">
+
+    /*
+   *   通过元素的style属性只能获取行内样式,但是我们一般不把样式写在行内
+   *   console.log(box1.style.width); //-> ''
+   *   获取元素的浏览器计算后的样式
+   *   window.getComputedStyle: 获取所有经过浏览器计算过的样式
+   *   window.getComputedStyle(操作对象，当前对象的伪类)
+   * */
+
+    var box1 = document.getElementById("box");
+    console.log(window.getComputedStyle(box1, null).height); //"200px"
+
+
+    /*
+    在IE 6 7 8 下， window没有getComputedStyle属性 ， 有一个currentStyle替代
+     */
+    //getCss:获取当前元素所有经过浏览器计算过的样式中的[attr]对应的值
+    //1.
+    function getCss(curEle, attr) {
+        if (window.getComputedStyle) {
+            return window.getComputedStyle(curEle, null)[attr];
+        } else { //ie低版本
+            return curEle.currentStyle[attr];
+        }
+    }
+
+    function getCss(curEle, attr) {
+        if ("getComputedStyle" in window) { //window有这个属性返回true
+            return window.getComputedStyle(curEle, null)[attr];
+        } else { //ie低版本
+            return curEle.currentStyle[attr];
+        }
+    }
+
+    function getCss(curEle, attr) {
+        if (typeof window.getComputedStyle === "function") {
+            return window.getComputedStyle(curEle, null)[attr];
+        } else { //ie低版本
+            return curEle.currentStyle[attr];
+        }
+    }
+
+
+    //2.
+    function getCss(curEle, attr) {
+        var val = '';
+        try {
+            val = window.getComputedStyle(curEle, null)[attr];
+        } catch (e) {
+            val = curEle.currentStyle[attr];
+        }
+        return val;
+    }
+
+    console.log(getCss(box1, "height"));
+
+    //通过检测浏览器版本来处理兼容
+    //->window.navigator.userAgent
+    //谷歌：Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3159.5 Mobile Safari/537.36
+    //IE10 Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; LCTE
+    //IE9 Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; LCTE)"
+    //IE8 "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; LCTE)"
+    function getCss(curEle, attr) {
+        if (/MSIE (?:6|7|8)/.test(window.navigator.userAgent)) {
+            return curEle.currentStyle[attr];
+        }
+        return window.getComputedStyle(curEle, null)[attr];
+    }
+
+
+    function getCss(curEle, attr) {
+        if ("getComputedStyle" in window) {
+            return window.getComputedStyle(curEle, null)[attr];
+        } else {
+            return curEle.currentStyle[attr];
+        }
+    }
+
+
+    console.log(getCss(box1, "fontFamily"));
+    console.log(getCss(box1, "border"));
+
+    //第一次升级：把获取到的样式值“单位去掉”
+    //->只符合"数字+单位/数字"才可以使用parseFloat
+
+    function getCss(curEle, attr) {
+        var val = null;
+        var reg = null;
+        if ("getComputedStyle" in window) {
+            val = window.getComputedStyle(curEle, null)[attr];
+        } else {
+            val = curEle.currentStyle[attr];
+        }
+        reg = /^-?\d+(\.\d+)?(px|pt|em|rem)?$/;
+        return reg.test(val) ? parseFloat(val) : val;
+    }
+
+    console.log(getCss(box1, "width"));
+    console.log(getCss(box1, "float"));
+
+    //opacity:0.1; /透明度，在IE6~8中不兼容
+    //filter:alpha(opacity=10); /不兼容下要用滤镜处理
+    //第二次升级：关于透明度的处理
+
+    function getCss(curEle, attr) {
+        var val = null;
+        var reg = null;
+        if ("getComputedStyle" in window) {
+            val = window.getComputedStyle(curEle, null)[attr];
+        } else {
+            //如果传递进来的是opacity，说明我们要获取透明度，但是在IE6~8下，获取透明度需要用filter
+            if (attr === 'opacity') {
+                val = curEle.currentStyle["filter"]; //->例如 alpha(opacity=10) ，对这个结果进行处理
+                reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+
+            } else {
+                val = curEle.currentStyle[attr];
+            }
+        }
+        reg = /^-?\d+(\.\d+)?(px|pt|em|rem)?$/;
+        return reg.test(val) ? parseFloat(val) : val;
+    }
+    console.log(getCss(box1, "opacity"));
+
+</script>
+
+
+</body>
+</html>

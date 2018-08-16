@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>鼠标跟随</title>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        .box{
+            position: relative;
+            margin: 30px auto;
+            width: 300px;
+            height: 300px;
+            background: lightgreen;
+        }
+
+        #mark{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 50px;
+            height: 50px;
+            background: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+<div class="box" id="box"></div>
+<script type="text/javascript">
+
+    //onmouseover onmouseout 是冒泡事件
+    //onmouseenter onmouseleave 是非冒泡事件
+
+    var box = document.getElementById("box");
+    //鼠标滑过时，创建#mark盒子
+    box.onmouseenter = function (e) {
+        var inner = document.createElement("div");
+        inner.id="mark";
+        this.appendChild(inner);
+        e = e || window.event;
+        //计算出鼠标距离父级元素box的上下距离
+        inner.style.top =  e.clientY - box.offsetTop + 5 +"px";
+        inner.style.left =  e.clientX - box.offsetLeft + 5 +"px";
+    }
+
+    //鼠标在box上移动时
+    box.onmousemove = function (e) {
+        e = e || window.event;
+        var inner = document.getElementById("mark");
+        inner.style.top =  e.clientY - box.offsetTop + 5 +"px";
+        inner.style.left =  e.clientX - box.offsetLeft + 5 +"px";
+    }
+
+    //鼠标离开box，移除inner
+    box.onmouseleave = function (e) {
+        var inner = document.getElementById("mark");
+        if(inner){
+            this.removeChild(inner);
+        }
+    }
+    
+</script>
+</body>
+</html>

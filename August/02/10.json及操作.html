@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    // JSON不是一个单独的数据类型，它只是一种特殊的数据格式 -> 它是对象数据类型的
+    var obj = {name:"珠峰",age:7}; //普通对象数据类型
+    var jsonObj = {"name":"珠峰","age":7}; //JSON数据类型
+
+    //2.在windows浏览器对象中，提供了一个叫JSON的属性，它提供了两个方法：
+    // -> window.JSON
+    //1)JSON.parse -> 把JSON格式的字符串转化为JSON格式的对象
+    //2)JSON.stringify -> 把JSON格式的对象转化为JSON格式的字符串
+
+    //在IE6~7 ,window没有JSON属性，刚才的parse和stringify都不存在
+    var str = '{"name":"珠峰","age":7}';
+    //不兼容
+    eval("("+str+")"); //把json格式字符串转化为JSON对象， 不要问为什么，一定要记住，使用eval的话，不要忘记手动加小括号
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="div1"><a>good</a>ha</div>
+<script type="text/javascript">
+    //window \ document \ div \ a 的原型链一级一级的结构画出来
+    //window -> Window ->WindowProperties -> EventTarget -> Object
+    //document -> HTMLDocument -> Document -> Node -> EventTarget -> Object
+    var div1 = document.getElementById("div1");
+    //div ->HTMLDivElement -> HTMLElement -> Element ->Node -> EventTarget ->Object
+    var a = document.getElementsByTagName("a")[0];
+    //a -> HTMLAnchorElement ->HTMLElement -> Element -> Node ->EventTarget -<Object
+
+    function A() {
+        this.x = 100;
+    }
+    var n = new A;
+
+</script>
+
+</body>
+</html>

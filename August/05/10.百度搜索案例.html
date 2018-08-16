@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索案例</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        input {
+            display: block;
+            outline: none;
+        }
+
+        a {
+            display: block;
+            text-decoration: none;
+            color: #000;
+        }
+
+        a:hover, a:active, a:target {
+            text-decoration: none;
+            color: #000;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            border-top: 1px solid transparent;
+        }
+
+        .box {
+            margin: 20px auto;
+            width: 500px;
+        }
+
+        .box input {
+            padding: 0 10px;
+            width: 300px;
+            height: 35px;
+            border: 1px solid lightgreen;
+        }
+
+        .box ul {
+            position: relative;
+            top: -1px;
+            border: 1px solid lightgreen;
+            display: none;
+        }
+
+        .box ul li, .box ul li a {
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .box ul li a {
+            padding: 0 10px;
+        }
+
+        .box ul li a:hover {
+            background: lightgray;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text" id="searchInp"/>
+    <ul id="searchList">
+        <li><a href="javascript:;">PHP</a></li>
+        <li><a href="javascript:;">JAVA</a></li>
+        <li><a href="javascript:;">PYTHON</a></li>
+        <li><a href="javascript:;">MYSQL</a></li>
+        <li><a href="javascript:;">MONGODB</a></li>
+        <li><a href="javascript:;">LINUX</a></li>
+        <li><a href="javascript:;">VUE.JS</a></li>
+    </ul>
+    <script type="text/javascript">
+        //显示：
+        //文本框获取焦点，并且文本框有内容的时候
+        //在文本框中操作内容(新插入/删除),如果内容没有清空，我们就显示，否则就隐藏
+
+        //隐藏：
+        //1)点击页面中其余的位置（除了文本框和ul里的每一行）都隐藏
+        //2）点击searchList中的列表隐藏，但是还要把列表中的内容放到文本框中
+
+        var searchInp = document.getElementById("searchInp"), searchList = document.getElementById("searchList");
+        searchInp.onfocus = searchInp.onkeyup = function () {
+            console.log(this.value);
+            var val = this.value.replace(/(^ +| +$)/g, ''); //去除两边字符串
+            searchList.style.display = val.length > 0 ? "block" : "none";
+        }
+
+        //隐藏，用事件委托
+        document.body.onclick = function (e) {
+            e = e || window.event;
+            var target = e.target || e.srcElement;
+
+            //如果点击的是a标签
+            if (target.tagName.toLowerCase() === "a" && target.parentNode.parentNode.id === "searchList") {
+                searchList.style.display = "none";
+                searchInp.value = target.innerHTML;
+                return;
+            }
+            //如果事件源是文本框，还需单独处理
+            /*
+            if (target.id === "searchInp") {
+                return;
+            }
+            */
+            searchList.style.display = "none";
+        }
+
+        //->我们可以阻止一个容器中某些特殊性的元素，让其不在委托的范围内：我们只要把这些不需要委托的阻止冒泡传播即可
+        searchInp.onclick = function (e) {
+            e = e || window.event;
+            e.stopPropagation() ? e.stopPropagation():e.cancelable=true;
+        }
+
+    </script>
+</div>
+</body>
+</html>

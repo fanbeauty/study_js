@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    // call : 改变this关键字 ， 谁调用，就改变谁里面的this
+    // call方法作用：首先我们让原型上的call方法执行,在执行call方法的时候，我们让fn方法中的this变为第一个参数值obj,
+    //然后在把fn这个函数执行
+    /*
+    var obj = {name:"fan"};
+    function fn() {
+        console.log(this);
+    }
+    fn(); // this->window
+
+    fn.call(obj);
+    */
+
+    var obj = {name:"fan"};
+    function fn() {
+        console.log(this);
+    }
+
+    /*
+    //自己莫伊内置call方法，写一个myCall方法，深入探讨call执行原理
+    Function.prototype.myCall = function (context) {
+        // 1.让fn中的this关键字变为context的值
+        eval(this.toString().replace("this",context));
+        // 2.让fn方法在执行
+        this();
+    }
+    fn.myCall(obj);
+    */
+
+    function zhufeng() {
+        // 1.让fn中的this关键字变为context的值
+        // 2.让fn方法在执行
+        //this();
+    }
+
+    //Function.prototype.call = zhufeng;
+
+    function fn1() {
+        console.log(1);
+    }
+    function fn2() {
+        console.log(2);
+    }
+
+
+
+    fn1.call(fn2); //通过原型链机制找到Function.prototype.call方法，把方法中的this替换成fn1,再把fn1中的this关键字替换成fn2,最后执行fn1;
+    fn1.call.call(fn2);   //先让call方法执行，call中的this是zhufeng , 让zhufeng中的this变为fn2,再让zhufeng执行
+
+    fn1.call.call.call.call.call.call.call(fn2);  // -> zhufeng.call(fn2)
+
+    Function.prototype.call(fn2); // -> anoymous.call(fn2) ; 为空
+//
+    Function.prototype.call.call.call.call.call(fn2); //zhufeng.call(fn2);
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

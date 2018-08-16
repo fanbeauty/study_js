@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作元素的样式类名</title>
+</head>
+<style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #box {
+        width: 200px;
+        height: 200px;
+    }
+
+    .bg {
+        background: #ff3333;
+    }
+
+    .border {
+        border: 5px solid green;
+    }
+
+    .position {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -100px 0px 0px -100px;
+    }
+</style>
+<body>
+
+<div id="box" class="bg"></div>
+
+
+<script type="text/javascript">
+    //addClass 增加样式类
+    //removeClass 删除样式类名
+    //hasClass 判断是否存在某一个样式类名
+    var box = document.getElementById("box");
+
+
+    //判断是否有这个class
+    function hasClass(curEle, className) {
+        var cn = curEle.className;
+//        if(cn.includes(className)){
+//            return true;
+//        }else{
+//            return false;
+//        }
+        //上面的规则不严谨,如果cn = "bg2" ,className=bg 也能被匹配到
+        var reg = new RegExp("(^| +)" + className + "( +|$)");
+        return reg.test(cn);
+    }
+
+    //增加类名
+    function addClass(curEle, className) {
+        //如果className是单个的class没有问题，如果是多个像"bg position"，hasClass就不能判断了
+        var class_arr = className.split(/ +/g);
+        for(var i=0;i<class_arr.length;i++)
+        {
+            if (hasClass(curEle, class_arr[i])) {
+                return;
+            }
+            curEle.className += " " + class_arr[i];
+        }
+
+    }
+
+    //移除类名
+    function removeClass(curEle,className) {
+        var class_arr = className.replace(/(^ +| +$)/g,"").split(/ +/g);
+        for(var i=0;i<class_arr.length;i++)
+        {
+            if (hasClass(curEle, class_arr[i])) {
+                var reg = new RegExp("(^| +)"+class_arr[i]+"( +|$)","g");
+                curEle.className = curEle.className.replace(reg," ");
+            }
+        }
+    }
+
+    addClass(box,"position");
+    addClass(box,"border bg");
+
+
+</script>
+</body>
+</html>

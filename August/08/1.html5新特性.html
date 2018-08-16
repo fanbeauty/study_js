@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html5新特性</title>
+    <style type="text/css">
+        #emailInp{
+            outline: none;
+        }
+        #emailInp:valid{
+            border: 1px solid blue;
+        }
+        #emailInp:invalid{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<select>
+    <option>MYSQL</option>
+    <option>PHP</option>
+    <option>MONGODB</option>
+    <option>LINUX</option>
+</select>
+
+<input type="search" id="searchInp" list="searchList" />
+<datalist id="searchList">
+    <option>MYSQL</option>
+    <option>PHP</option>
+    <option>MONGODB</option>
+    <option>LINUX</option>
+</datalist>
+
+
+<input type="email" id="emailInp" />   <!--内置了一个checkValidity方法，验证类型的正确性-->
+<script type="text/javascript">
+    var email = document.getElementById("emailInp");
+    email.onblur = function () {
+        if(!this.checkValidity())
+        {
+            window.alert("邮箱格式不正确");
+        }
+    };
+    email.onkeyup = function () {
+//        if(!this.checkValidity())
+//        {
+//            this.style.border = "1px solid red";
+//        }else{
+//            this.style.border = "1px solid blue";
+//        }
+    }
+//-->相当于传统表单类型提供了新的验证方式：JS中新提供的是 input.checkValidity()
+//-->CSS中新提供的是input:valid / input:invalid
+</script>
+
+
+
+<!--日期-->
+<!--<input type="date" />-->
+
+<!--<input type="number" id="number" style="width:50px;text-align: center;" value="25" disabled />-->
+<!--<input type="range" id="range" min="18" max="60" value="25" step="1"/>-->
+<!--<script type="text/javascript">-->
+    <!--var range = document.getElementById("range"),number = document.getElementById("number");-->
+    <!--range.oninput = function () {-->
+        <!--number.value = this.value;-->
+    <!--}-->
+
+<!--</script>-->
+
+
+
+<!--<input type="checkbox" name="habit" value="swimming" id="swimming" /><label for="swimming">游泳</label>-->
+<!--<input type="checkbox" name="habit" value="fight" id="fight"/><label for="fight">打架</label>-->
+<!--<input type="checkbox" name="habit" value="sing" id="sing"/><label for="sing">唱歌</label>-->
+<!--<input type="checkbox" name="habit" value="guitar" id="guitar" /><label for="guitar">弹吉他</label>-->
+<!--<input type="checkbox" name="habit" value="coding" id="coding"/><label for="coding">写代码</label>-->
+<!--<input type="submit" id="submit" />-->
+<!--<script type="text/javascript">-->
+   <!--var submit = document.getElementById("submit"),check = document.getElementsByName("habit");-->
+
+   <!--submit.onclick = function () {-->
+       <!--for(var i=0;i<check.length;i++)-->
+       <!--{-->
+           <!--if(check[i].checked)-->
+           <!--{-->
+               <!--console.log(check[i].value);-->
+           <!--}-->
+       <!--}-->
+   <!--}-->
+
+
+<!--</script>-->
+
+
+
+
+<!--&lt;!&ndash;单选按钮通过name分组,label上加一个for指向，说明label和前面的单选框等价，也可以被选中&ndash;&gt;-->
+<!--<input type="radio" name="sex" value="man" id="sexMan" checked/><label for="sexMan">男</label>-->
+<!--<input type="radio" name="sex" value="woman" id="sexWoman"/><label for="sexWoman">女</label>-->
+<!--<input type="submit" id="submit">-->
+<!--<script type="text/javascript">-->
+
+    <!--var submit = document.getElementById("submit"), sexMan = document.getElementById("sexMan"),-->
+        <!--sexWoman = document.getElementById("sexWoman");-->
+    <!--submit.onclick = function () {-->
+        <!--var sexType = 0;-->
+        <!--sexType = sexMan.checked ? 0 : 1;-->
+        <!--console.log(sexType);-->
+    <!--};-->
+    <!--sexMan.onclick = sexWoman.onclick = function () {-->
+        <!--console.log(this.value);-->
+    <!--}-->
+<!--</script>-->
+
+<script type="text/javascript">
+    /*
+    传统的INPUT表单的类型：text、password、submit、reset、button、radio
+    checkbox、file、hidden.......
+    PC表单元素常用的事件都有哪些：click change focus blur keydown keyup
+    移动端表单常用事件：在移动没有keydown keyup(事件)，因为移动端使用的是虚拟键盘：因此移动多了一个事件类型，在操作过程中触发 input事件(oninput)
+
+    HTML5中给INPUT新增加了一些类型：
+        search
+        url
+        email
+        tel
+        number
+        range
+        color
+        date
+        time
+        dateTime
+     */
+
+</script>
+</body>
+</html>

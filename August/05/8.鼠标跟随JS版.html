@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标跟随</title>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .box {
+            position: relative;
+            width: 450px;
+            margin: 20px auto;
+        }
+
+        .box > img {
+            float: left;
+            margin-left: 10px;
+            width: 100px;
+            height: 75px;
+            border: 1px solid #008000;
+        }
+
+        #mark {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 10;
+            width: 0px;
+            height: 0px;
+            border: 1px solid #0077B0;
+            display: none;
+        }
+
+        #mark img {
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <img src="img/apple_1.jpg" bigImg="img/apple_1_bigger.jpg"/>
+    <img src="img/apple_2.jpg" bigImg="img/apple_2_bigger.jpg"/>
+    <img src="img/apple_3.jpg" bigImg="img/apple_3_bigger.jpg"/>
+    <img src="img/apple_4.jpg" bigImg="img/apple_4_bigger.jpg"/>
+    <div id="mark">
+        <img src="img/apple_1_bigger.jpg"/>
+    </div>
+</div>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="tween.js"></script>
+<script type="text/javascript">
+
+    var box = document.getElementById("box"),imgList = utils.children(box,"img"),mark = utils.lastChild(box),img = utils.children(mark,"img")[0];
+    for(var i=0;i<imgList.length;i++)
+    {
+        ~function (i) {
+            var curImg = imgList[i];
+            curImg.onmouseenter = function (e) {
+                mark.style.display = "block";
+                img.src = curImg.getAttribute("bigImg");
+                huanAnimate(img,{width:400,height:300},300);
+                e = e || window.event;
+                mark.style.left = e.clientX - utils.offset(box).left + 5 +"px";
+                mark.style.top = e.clientY - utils.offset(box).top + 5 +"px";
+            };
+            curImg.onmousemove = function(e){
+                e = e || window.event;
+                mark.style.left = e.clientX - utils.offset(box).left + 5 +"px";
+                mark.style.top = e.clientY - utils.offset(box).top + 5 +"px";
+            };
+            curImg.onmouseleave = function (e) {
+                huanAnimate(img,{width:0,height:0},300);
+                mark.style.display = "none";
+            }
+        }(i);
+    }
+
+</script>
+</body>
+</html>

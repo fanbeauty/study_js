@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>反弹动画</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #box {
+            position: absolute;
+            top: 0px;
+            left: 500px;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+
+        .btn {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            height: 50px;
+        }
+
+        .btn input {
+            display: inline-block;
+            margin-left: 50px;
+            outline: none;
+            width: 100px;
+            height: 50px;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+    <input type="button" value="向左" id="btnLeft">
+    <input type="button" value="向右" id="btnRight">
+
+</div>
+<script type="text/javascript" src="../05/js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var maxLeft = utils.win("clientWidth") - box.offsetWidth, minLeft = 0;
+    var btnLeft = document.getElementById("btnLeft"), btnRight = document.getElementById("btnRight");
+    var step = 5;
+
+
+    //->为了让当前元素在同一个时间只运行一个动画（下一个动画开始的时候首先把上一个动画的定时器清除掉），
+    //保证当前元素所有的动画接受定时器返回值的那个变量需要共享 . !!可以使用自定义属性
+    // 把这个值放在当前元素的自定义属性上
+
+    function move(target) {
+        _move();
+        function _move() {
+            window.clearTimeout(box.timer);
+            var curLeft = utils.css(box, "left");
+            if (curLeft < target) { //向右走
+                if (curLeft + step > target) {
+                    utils.css(box, "left", target);
+                    return;
+                }
+                curLeft += step;
+                utils.css(box, "left", curLeft);
+            } else if (curLeft > target) { //向左走
+                if (curLeft - step < target) {
+                    utils.css(box, "left", target);
+                    return;
+                }
+                curLeft -= step;
+                utils.css(box, "left", curLeft);
+            } else { //不需要移动
+                return;
+            }
+            box.timer = window.setTimeout(_move, 10);
+        }
+    }
+
+    btnLeft.onclick = function () {
+        move(minLeft);
+    }
+    btnRight.onclick = function () {
+        move(maxLeft);
+    }
+
+    /*
+    js动画优化的四条黄金法则：
+    1）边界判断+step
+    2) 用settimeout实现轮循动画时候，每一次把没用的定时器销毁掉
+    3) move方法需要传参的话，需要在里面在写一个小move,来避免不销毁作用域的层级嵌套
+    4) 让当前元素在同一个时间内，只能运行一个动画的话，需要把定时器的那个返回值，放在当前元素自定义属性上
+     */
+
+
+</script>
+</body>
+</html>

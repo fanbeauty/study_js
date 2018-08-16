@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟百度模拟搜索</title>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+            font-family: "Microsoft YaHei UI";
+            font-size: 16px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #box {
+            margin: 30px auto;
+            width: 500px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        a, a:hover, a:active, a:link {
+            color: black;
+            text-decoration: none;
+        }
+
+        #inputSearch {
+            display: block;
+            width: 300px;
+            height: 30px;
+            padding: 5px 10px;
+            line-height: 30px;
+        }
+
+        ul {
+            width: 400px;
+            height: 160px;
+            border: 1px solid lightsalmon;
+            display: none;
+        }
+
+        ul li {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        li a {
+            padding-left: 10px;
+            display: block;
+        }
+
+        ul li a:hover {
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <input type="text" id="inputSearch"/>
+    <ul id="ulSearch">
+    </ul>
+</div>
+<script type="text/javascript" src="jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box"), input = document.getElementById("inputSearch"),
+        oUl = document.getElementById("ulSearch");
+    /*
+    https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=b&json=1&p=3&sid=1444_21126_18560_17001_22158&req=2&csor=1&cb=jQuery110206583615114729631_1509004181185&_=1509004181187
+     */
+
+    //单例模式
+    var searchModule = (function () {
+        var $box = $(box), $input = $(input), $ul = $(oUl);
+
+        //向百度服务器发送JSONP请求，获取到数据后，绑定到容器中
+        function bindHTML() {
+            function callback(data) {
+                var data = data["s"];
+                var str = '';
+                $.each(data, function (index, item) {
+                    if (index <= 3) {
+                        str += "<li><a href='javascript:;'>" + item + "</a></li>"
+                    }
+                });
+
+                if (str.length === 0) {
+                    $ul.html(str);
+                    return;
+                }
+
+                $ul.html(str).stop().slideDown(300);
+            }
+
+            $.ajax({
+                url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + $input.val(),
+                dataType: 'jsonp',
+                jsonp: 'cb',
+                success: callback
+            })
+        }
+
+        //事件绑定的和模块的入口
+        function init() {
+            //jQuery多事件绑定
+            //->文本框获取焦点或者输入内容的时候判断当前文本是否有内容，有内容绑定数据，没有内容隐藏展示框
+            $input.on("focus keyup", function () {
+                var val = $(this).val();
+                if (val.length > 0) {
+                    bindHTML();
+                    return;
+                }
+                $ul.stop().slideUp(100);
+            });
+
+            //使用事件委托来处理
+            //点击的是LI我们让LI中的内容显示在文本框中，展示框消失；点击的是文本框，什么事情也不做；点击的是其他地方，展示框消失
+            //给展示框中的li绑定方法,当点击li的时候，把当前li中的内容放入文本框，并且隐藏文本框
+            $(document).on("click", function (e) {
+                var target = e.target, tarTag = target.tagName.toUpperCase(), $tar = $(target);
+                //点击的是Li中的A
+
+                console.log(tarTag);
+
+                if (tarTag === "A" && $tar.parent().parent().prop("id") === "ulSearch") {
+                    $input.val($tar.text());
+                    $ul.stop().slideUp(100);
+                    return;
+                }
+                //点击的是文本框
+                if ($tar.prop("id") === "inputSearch") {
+                    return;
+                }
+                $ul.stop().slideUp(100);
+            })
+        }
+
+        return {init: init};
+    })();
+    searchModule.init();
+</script>
+</body>
+</html>

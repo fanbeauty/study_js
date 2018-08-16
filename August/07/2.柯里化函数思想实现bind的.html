@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柯里化函数</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            cursor: pointer;
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    //->柯理化思想：一个JS预先处理的思想->利用函数执行可以形成一个不销毁的私有作用域的原理，
+    //把需要预先处理的内容都存在这个不销毁的作用域中，并且返回了一个小函数，以后我们执行的都是
+    //小函数，在小函数中把之前预先存储的值进行相关的操作处理即可
+
+    var obj = {name: "珠峰培训"};
+
+    function fn(num1, num2, e) {
+        console.log(this, num1, num2, e); //e是MouseEvent
+    }
+
+
+    //在原型上自己写一个bind
+    Function.prototype.myBind = function myBind(context) {
+
+        var outerArgs = Array.prototype.slice.call(arguments, 1);
+        var _this = this;
+        //->if兼容
+        if("bind" in Function.prototype)
+        {
+           return this.bind.apply(this,[context].concat(outerArgs));
+        }
+        //不兼容
+        return function () {
+            var innerArgs = Array.prototype.slice.call(arguments);
+            innerArgs.length === 0 ? innerArgs[innerArgs.length] = window.event : null; //IE6~8下，e = window.event 而不是MouseEvent,所以还要做一个判断
+            _this.apply(context, outerArgs.concat(innerArgs));
+        }
+    };
+
+    document.body.onclick = fn.myBind(obj,10,20);
+
+    /*
+    function bind(callback, context) {
+        var outerArgs = Array.prototype.slice.call(arguments, 2);
+        return function () {
+            var innerArgs = Array.prototype.slice.call(arguments);  //这里面存出来玩鼠标点击传递过来的MouseEvent事件对象e
+            callback.apply(obj, outerArgs.concat(innerArgs));
+        }
+    }
+
+
+    document.body.onclick = bind(fn, obj, 10, 20);
+    //    document.body.onclick = fn; //把fn中的this由MouseEvent变为obj，并且传递两个参数
+    */
+    /*
+    document.body.onclick = function () {
+        //给元素的某一行为绑定方法，当行为触发的时候，执行对应的方法，当前元素的this是元素本身，
+        //而且浏览器会给当前方法传递一个默认的形参（mouseEvent 鼠标事件对象）
+        console.log(arguments);
+    }
+*/
+
+    /*
+    //bind运用柯理化方法，预先把callback回调函数中的this转化为context
+    function bind(callback,context) {
+        context = context || window;
+        var outerArgs = Array.prototype.slice.call(arguments,2);
+        return function () {
+            callback.apply(context,outerArgs); //->让fn执行，并且让fn中的this变为obj
+        }
+
+    }
+    var obj = {name:"珠峰培训"};
+    function fn(num1,num2) {
+        console.log(this,num1,num2);
+    }
+
+    window.setTimeout(bind(fn,obj,10,20),1000);  //->给定时器绑定一个bind方法，当定时器到达时间的时候，让fn执行，并且
+                                            //让fn中的this变为obj
+
+    */
+
+
+
+    /*
+    var obj = {name:"珠峰培训"};
+    function fn() {
+        console.log(this);
+    }
+
+    window.setTimeout(fn.bind(obj),1000);  //但是在IE678下，不支持bind方法
+    */
+
+
+</script>
+</body>
+</html>

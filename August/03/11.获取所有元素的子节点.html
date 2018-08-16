@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取所有元素的子节点</title>
+</head>
+<body>
+<div id="div1">
+    <div id="div2"></div>
+    <div id="div3"></div>
+    <div>
+        <p></p>
+        <p></p>
+    </div>
+    <p></p>
+    <p></p>
+    <p></p>
+</div>
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    //->首先获取所有的子节点(childNodes),在所有的子节点中把元素节点过滤出来（nodeType===1）
+    function children(culEle,tagname) {
+        var ary = [];
+        if(/MSIE(6|7|8)/i.test(navigator.userAgent)){
+            var nodeList = culEle.childNodes;
+            for(var i=0;i<nodeList.length;i++){
+                var curNode = nodeList[i];
+                if(curNode.nodeType===1){//当前节点是元素节点
+                    ary.push(curNode);
+                }
+            }
+        }else{
+            ary = [].slice.call(culEle.children);
+        }
+        //二次筛选：过滤掉tagname元素
+        if(typeof tagname === "string"){
+            for(var k=0;k<ary.length;k++){
+                var curEleNode = ary[k];
+                if(curEleNode.nodeName.toLowerCase() !== tagname.toLowerCase()){
+                    //不是我想要的标签
+                    ary.splice(k,1);
+                    k--;
+                }
+            }
+        }
+        return ary;
+    }
+    console.log(children(oDiv,"div"));
+</script>
+</body>
+</html>

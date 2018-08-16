@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指定步长实现单方向匀速运动</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #box{
+            position: absolute;
+            top: 0px;
+            left:0px;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="../05/js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var maxLeft = utils.win("clientWidth") - box.offsetWidth;
+    var step = 5;
+    var timer = window.setInterval(function () {
+        var curLeft = utils.css(box,"left");
+        if(curLeft+step>maxLeft){ //边界判断加上步长计算
+            utils.css(box,"left",maxLeft);
+            window.clearInterval(timer);
+            return;
+        }
+        curLeft+=step;
+        utils.css(box,"left",curLeft);
+    },10);
+
+    //问题：当总距离/我们设置的步长 = 不是一个整数 -->我少走一步的话还差一点在到目标位置，走一点会超出目标位置
+    //->解决：在进行边界判断的时候加上步长来处理
+</script>
+</body>
+</html>

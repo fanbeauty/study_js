@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery版AJAX和JSONP</title>
+</head>
+<body>
+<script type="text/javascript" src="jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    //->AJAX
+    /*
+    $.ajax({
+        url:'',
+        type:'', //请求类型 get post
+        dataType: "json", //请求数据类型
+        data:null,
+        async:true, //同步或异步
+        cache:false, //设定GET请求的时候不走缓存数据，原理其实就是在URL末尾加随机数，默认是true
+        timeout:3000, //设置超时时间，一般都设定3000
+        success:function (data) {
+            console.log(data);
+        },
+        error:function () {
+
+        }
+    })
+    */
+    //JSONP
+    //JSONP都是get和异步请求，不存在其他的请求方式和同步请求，而且jQuery默认就会给JSONP的请求清除缓存
+    $.ajax({
+        url:'',
+//        type:"get",
+        dataType:'jsonp', //jQuery会自动创建一个随机函数名
+        jsonpCallback:"fn", //自定义传给服务器的函数名，而不是 Query自动创建的随机函数名
+        josnp:"cb", //把传递给函数名的那个形参由callback 变为 cb
+                    // 之间的话 ....callback = jQuery... ==> ....cb=fn.....
+        success:function (data) {
+
+        }
+
+    })
+
+
+</script>
+</body>
+</html>

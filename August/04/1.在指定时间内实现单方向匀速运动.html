@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在指定时间内实现单方向匀速运动</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #box{
+            position: absolute;
+            top: 0px;
+            left:0px;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="../05/js/utils.js"></script>
+<script type="text/javascript">
+
+    var box = document.getElementById("box");
+
+    //实现一个匀速运动，在指定时间内完成动画，计算出总距离/总时间,根据总距离和总时间求出此对应的步长（每10ms走一步需要走多远）
+    //设置一个定时器，让元素每一次都在当前的基础上累加步长即可
+    /*
+    var maxLeft = utils.win("clientWidth") - box.offsetWidth;
+    var duration = 2000,step = (maxLeft/duration)*10;
+    var timer = window.setInterval(function () {
+        var curLeft = utils.css(box,"left");
+        if(curLeft+step>maxLeft){ //当当前的left值 > maxLeft ,清空定时器
+            utils.css(box,"left",maxLeft);
+            window.clearInterval(timer);
+            return;
+        }
+        curLeft+=step;
+        utils.css(box,"left",curLeft);
+    },10);
+    */
+
+    //方法二
+    var target = utils.win("clientWidth") - box.offsetWidth,begin = utils.css(box,"left"),change = target-begin;
+    var duration = 2000,time = null;
+    function linear(t,d,c,b) {
+        return (c*t)/d+b;
+    }
+    var timer = window.setInterval(function () {
+        time+=10;
+        if(time>duration){
+            window.clearInterval(timer);
+            return;
+        }
+        var curPos = linear(time,duration,change,begin);
+        utils.css(box,"left",curPos);
+    },10)
+
+
+</script>
+</body>
+</html>

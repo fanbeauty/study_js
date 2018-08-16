@@ -1,0 +1,19 @@
+node:为js在服务器端提供的一个运行环境
+
+NODE模块：
+    ->内置模块：http、fs、url...
+    ->自定义模块
+        在NODE环境中，我们在当前的项目下创建一个JS文件，就相当于创建了一个模块，例如：新建一个
+    a.js，相当于创建了a模块
+        如果需要提供一些方法给其它的模块使用，则需要通过module.exports把方法导出,例如：在A模块中
+    写了一个fn方法，导出的方法是 module.exports = {fn:fn}; / module.exports.fn = fn;
+    ->第三方模块
+        npm install 第三方模块名称 -g（安装到全局环境）
+        npm uninstall ...
+
+当服务创建成功，如何向服务器发起请求
+    1. 浏览器:http:localhost:port
+
+1、MIME类型
+    ->每一种资源文件都有自己的标识类型，例如：HTML文件的MIME类型是“text/html”,CSS文件的MIME类型是"text/css"
+    ......,浏览器会按照文件的MIME类型进行渲染

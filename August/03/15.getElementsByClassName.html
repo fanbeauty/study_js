@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getElementsByClassName</title>
+</head>
+<body>
+    <div class="w1 w2 w3"></div>
+    <div class="w2 w3"></div>
+    <div class="w1 w2"></div>
+    <div class="w1 w3"></div>
+    <div class="w3"></div>
+
+
+
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript">
+
+
+
+    console.log(utils.getElementsByClass("w3 w2 w1"));
+
+//    console.log(getElementsByClass("  w2  "));
+
+    //->getElementsByClass:通过元素的样式类名获取一组元素集合
+    //->className:要获取的样式类名（可能是一个也可能是多个）
+    function getElementsByClass(className,context){
+        var context = context || document;
+        //->把传递进来的样式类名的首尾空格先去掉，然后在按照中间的空格把里面的每一项拆分成数组
+        var classNameAry = className.replace(/(^ +| +$)/g,"").split(/ +/g);
+        //->获取指定上下文中的所有元素标签，循环这些标签，获取每一个标签的className样式类名字符串
+        var nodeList = context.getElementsByTagName("*"); //->获取指定上下文中的所有元素标签
+
+        var ary = [];
+        for(var i=0;i<nodeList.length;i++){
+            var curNode = nodeList[i];
+            var curNodeClassName = curNode.className;
+            var flag = true;
+            for(var j=0;j<classNameAry.length;j++){
+                var curClassName = classNameAry[j];
+                var reg = new RegExp("(^| +)"+curClassName+"( +|$)");
+                if(!reg.test(curNodeClassName)){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                ary.push(curNode);
+            }
+        }
+        return ary;
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

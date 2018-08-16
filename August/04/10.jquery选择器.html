@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+</head>
+<body>
+<div id="div1">
+    <div class="d1">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="d2"></div>
+    <div class="d3">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    /*
+    jquery就是用原生JS写的一个方法类库，兼容所有的浏览器
+    jQuery选择器
+    jQuery中提供的常用方法
+        核心
+        选择器
+        属性
+        筛选
+        CSS
+        文档处理
+        事件
+        效果（动画）
+
+        Ajax
+        工具
+     */
+
+
+    //->jquery选择器
+    //通过传递对应规则的内容（ID、标签、样式类名...），获取到页面中指定的元素/元素集合
+
+    //原生的JS 获取到结果属于元素对象/元素集合/节点集合...它们可以使用浏览器为其提供的那些天生自带的属性和方法
+    var oDiv = document.getElementById("div1");
+
+    //Jquery 通过jQuery选择器获取到的结果是一个Jquery对象，可以使jQuery提供的属性和方法
+    var $oDiv = jQuery("#div1"); //==> var $oDiv = $("#div1");  //$ === jQuery
+
+
+    //2.关于原生JS对象和jQuery对象之间的转化
+    //->原生转化为jQuery
+    $(oDiv);
+    //->JQuery转化为原生
+    //1)
+    $oDiv[0];
+    //2)
+    $oDiv.get(0); //通过索引获取指定位置的元素对象
+
+
+    console.log($(".d1~div:not(.d2)"));
+
+    /*
+    jQuery选择器
+    (1)基本
+        #id
+        element
+        .class
+        *
+        selector1,selector2,selectorN 群组，把每一个选择器获取到的Jquery对象最后融合在一起
+    （2）层次选择器
+        ancestor descendant 获取子子孙孙级别的
+        parent > child 获取儿子级别的
+        prev + next 获取他的下一个弟弟
+            prev +  获取他的下一个弟弟
+            prev + ul 获取他的下一个弟弟是ul
+        prev ~ siblings 获取所有弟弟元素
+
+     （3）基本过滤选择器
+        :first
+        :last
+        :not
+        :even
+        :odd
+        :eq  通过索引获取集合元素中的某一个Jquery元素对象
+        :gt
+        :lt
+        :header
+        :animated
+
+     （4）内容过滤选择器
+        :contains
+        :empty
+        :has
+        :parent
+
+      (5)可见性过滤选择器
+        :hidden
+        :visible
+
+      (6)属性过滤选择器
+        [attribute]
+        [attribute=value]
+        [attribute!=value]
+        [attribute^=value]
+        [attribute$=value]
+        [attribute*=value]
+        [attrSel1][attrSel2][attrSel3]
+
+      (7)子元素过滤选择器
+        :nth-child
+        :first-child
+        :last-child
+        :only-child
+
+      （8)表单选择器
+         :input
+         :text:
+         :password
+         :radio
+         :checkbox
+         :submit
+         :image
+         :reset
+         :button
+
+       (9)表单过滤选择器
+        :enabled
+        :disabled
+        :checked
+        :selected
+
+     */
+
+
+</script>
+</body>
+</html>

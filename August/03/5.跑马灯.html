@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑马灯</title>
+<style type="text/css">
+    *{
+        margin: 0px;
+        padding:0px;
+        font-family: "Microsoft YaHei UI";
+    }
+    .container{
+        width:1000px;
+        height:35px;
+        margin: 30px auto;
+        padding: 0px 10px;
+        border:1px dashed lightgreen;
+    }
+    .wraper{
+        white-space: nowrap;
+        line-height:35px;
+        overflow: hidden;
+    }
+    .wraper div{
+        display: inline-block;
+    }
+    .wraper span{
+        font-size:16px;
+        font-weight:bold;
+        color:red;
+    }
+
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="wraper">
+        <div class="conBegin"><span>jaychou:</span>还记得你说家是唯一的城堡，随着稻香河流继续奔跑，微微笑 小时候的梦我知道，不要哭让萤火虫带著你逃跑，乡间的歌谣永远的依靠，回家吧，回到最初的美好</div><div class="conEnd"><span>jaychou:</span>还记得你说家是唯一的城堡，随着稻香河流继续奔跑，微微笑 小时候的梦我知道，不要哭让萤火虫带著你逃跑，乡间的歌谣永远的依靠，回家吧，回到最初的美好</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    var container = document.getElementsByClassName("container")[0];
+    var wraper = document.getElementsByClassName("wraper")[0];
+    var conBegin = document.getElementsByClassName("conBegin")[0];
+    var left = 0;
+    var conWidth = getCss(conBegin,"width");
+
+    var timer = window.setInterval(move,10);
+
+    //鼠标放上去停止滚动
+    container.onmouseover = function () {
+        window.clearInterval(timer);
+    }
+    //鼠标离开，继续滚动
+    container.onmouseout = function () {
+        timer = window.setInterval(move,10);
+    }
+
+
+    function move() {
+        wraper.scrollLeft++;
+        if(wraper.scrollLeft>=conWidth){
+            wraper.scrollLeft=0;
+        }
+    }
+
+    function getCss(curEle, attr) {
+        var val = null;
+        var reg = null;
+        if ("getComputedStyle" in window) {
+            val = window.getComputedStyle(curEle, null)[attr];
+        } else {
+            //如果传递进来的是opacity，说明我们要获取透明度，但是在IE6~8下，获取透明度需要用filter
+            if (attr === 'opacity') {
+                val = curEle.currentStyle["filter"]; //->例如 alpha(opacity=10) ，对这个结果进行处理
+                reg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                reg.test(val) ? reg.exec(val)[1] / 100 : 1;
+
+            } else {
+                val = curEle.currentStyle[attr];
+            }
+        }
+        reg = /^-?\d+(\.\d+)?(px|pt|em|rem)?$/;
+        return reg.test(val) ? parseFloat(val) : val;
+    }
+
+
+</script>
+</html>

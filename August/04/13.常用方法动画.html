@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        #div1{
+            position: absolute;
+            top:50px;
+            left: 50%;
+            margin-left: -100px;
+            width: 200px;
+            height:300px;
+            background: lightgreen;
+
+        }
+        input{
+            display: block;
+            margin:5px auto;
+            outline: none;
+            width:200px;
+            height:35px;
+            border:1px solid green;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="操作">
+<div id="div1">
+</div>
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    //ajax
+    /*
+    $.ajax({
+        url: "json/banner.txt?_=" + Math.random(),
+        type: 'get',
+        dataType: 'json', //'text' 'jsonp' 'html' 'text'
+        success:function (data){
+            console.log(data);
+        }
+    })*/
+
+    //->事件
+    $("#div1").on("click",function () {
+        console.log(1);
+    })
+
+    $("#div1").on("click",function () {
+        console.log(2);
+    })
+
+    //以上同时绑定两个事件，不会覆盖掉
+
+    $("#div1").on("mouseover",function () {
+        $(this).css("background","red");
+    })
+    $("#div1").on("mouseout",function () {
+        console.log(4);
+    })
+
+
+    //工具
+    //$.browser.version
+    //->each: jQuery中有两个each（一个是$("div").each(function(){})） 循环选择器获取到的Jquery中的每一项
+    //$.each() : 循环数组、类数组或对象的每一项
+    $.each([12,23,34],function (index,item) {
+        console.log(item);
+    })
+    //$.makeArray ==> listToArray 将类数组转化为数组
+    //$.map() (也有两个，和each类似，只是支持返回值)
+
+    //$.unique 数组除重
+    //$.parseJSON(json) : 把json格式字符串，转化为json对象
+    //$.parseXML(data):把data转化为XML
+
+    //$.isNumeric(value)
+
+
+    //动画
+    //->animate({left:xxx,top:xxx,...},duration,"Linear/ease/easeIn/easeOut/easeInOut",function(){})
+    //->stop:结束之前正在运行的动画开启下一个新的动画
+    //$("#box").stop().animate();
+    //->delay()
+    //->finish()
+    //->fadeIn() 淡入
+    //->fadeOut() 淡出
+    //->fadeToggle()
+    //->show()
+    //->hide()
+    //->toggle()
+    //->slideUp()
+    //->slideDown()
+    //->slideToggle()
+
+
+    $("input[type=button]").on("click",function(){
+        $("#div1").hide(500);
+    })
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

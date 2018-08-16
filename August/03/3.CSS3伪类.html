@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS3伪类</title>
+</head>
+<style class="text/css">
+    *{
+        margin: 0px;
+        padding:0px;
+    }
+    .box{
+        width:300px;
+        margin: 20px auto;
+        padding: 20px;
+        border:5px solid lightgreen;
+        line-height: 30px;
+    }
+
+    p::before{
+        display: block;
+        content: "周杰伦";
+        width: 100px;
+        height:30px;
+        text-align: center;
+        background-color: lightblue;
+        margin: 0px auto;
+    }
+
+    p::after{
+        display: block;
+        content: "稻香";
+        width: 100px;
+        height:30px;
+        text-align: center;
+        background-color: lightblue;
+        margin: 0px auto;
+    }
+
+    .box2{
+        width: 310px;
+        margin: 0px auto;
+        border: 1px solid lightcyan;
+        list-style: none;
+        padding: 10px;
+    }
+
+    .box2 li{
+        width: 100px;
+        height: 100px;
+        float: left;
+        background-color: antiquewhite;
+        border: 1px solid darkblue;
+    }
+
+    /*清除浮动*/
+    .clear{
+        zoom:1;
+    }
+    .clear::after{
+        display: block;
+        height: 0px;
+        width:0px;
+        overflow: hidden;
+        visibility: hidden;
+        content: '';
+        clear: both;
+    }
+
+</style>
+<body>
+    <div class="box">
+        <p>
+            笑一个吧，功成名就不是目的，让自己开心开心，这才叫做意义，童年的纸飞机现在又飞回我手里。
+            笑一个吧，功成名就不是目的，让自己开心开心，这才叫做意义，童年的纸飞机现在又飞回我手里。
+            笑一个吧，功成名就不是目的，让自己开心开心，这才叫做意义，童年的纸飞机现在又飞回我手里。
+        </p>
+    </div>
+
+    <ul class="box2 clear">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <p>
+    笑一个吧，功成名就不是目的，让自己开心开心，这才叫做意义，童年的纸飞机现在又飞回我手里。
+    </p>
+
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+</head>
+<body>
+<div id="div1">
+    <div class="d1">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="d2"><span>i love you</span></div>
+    <div class="d3">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<input type="text" name="username" value="jack" />
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+    //1.jQuery的回调函数
+    //1)callbacks.add() 回调列表中添加一个回调或回调的集合
+    /*
+    var foo = function (value) {
+        console.log('foo:' + value);
+    }
+    var bar = function (value) {
+        console.log('bar:' + value);
+    }
+    var callbacks = $.Callbacks(); //创建一个回调函数列表集合
+    callbacks.add(foo); //向集合中增加一个叫foo方法
+    callbacks.fire('hello');//触发fire方法，把回调集合中的方法执行，并且把对应的参数传递给对应的集合
+    callbacks.add(bar);
+    callbacks.fire('hello');
+    callbacks.remove(foo);
+    callbacks.fire('hello');
+    */
+
+    //2.->$(document).ready(function () { }); // ==> $(function(){}) 和原生JS中的
+    //window.onload对应，window.onload的意思是当页面中的html结构，图片，文字所有资源都加载完后会
+    //触发这个行为，并且在一个页面中它只会触发一次，后面写的会把前面的覆盖掉
+    //$(document).ready(function () { }); 只要html结构加载完就会触发对应的行为，而且在一个页面中可以使用多次
+
+    //$(function(){}) //作用1：所有的html都加载完了，2.形成了一个闭包
+
+
+    //3.属性
+    //->attr:获取和设置元素的自定义属性，等价于原生JS中的set/getAttribute方法
+    //->removeAttr
+    /*
+    var $box = jQuery("#div1");
+    $box.attr("zhufeng","huany");
+    $box.attr({
+        "zhufeng":100,
+        "index":1
+    }); //批量设置自定义属性
+    console.log($box.attr("zhufeng"));
+    $box.removeAttr("zhufeng");
+    */
+
+    //prop:也是设置属性(和attr是不同的两套方法)
+    //removeProp
+    //prop内置的属性可以在HTML结构中体现出来，但是不是内置的属性是体现不出来的（但是可以获取到值）
+    //attr和prop的区别：attr一般操作自定义属性，prop操作内置属性
+    var $box = jQuery("#div1");
+    $box.prop("zhufeng","huany");
+
+    //addClass
+    //removeClass
+    //toggleClass (toggle系列都是之前有就是移除，没有就是新增）
+    //html()
+
+    console.log($(".d2").html());
+
+    //text()
+
+    console.log($(".d2").text());
+
+    //val()
+
+
+    console.log($(":input[type=text]").val('huan'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

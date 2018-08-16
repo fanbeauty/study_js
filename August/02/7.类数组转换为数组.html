@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/utils.js"></script>
+    <title></title>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script type="text/javascript">
+    //    var oLis = document.getElementsByTagName("div");
+    //    console.dir(oLis);  // HTMLCollection 元素集合类的一个实例 ， 它也是一个类数组集合
+    //
+    //    var oLis = document.getElementsByName("zhufeng");
+    //    console.dir(oLis); // NodeList 节点集合 , 也是类数组
+
+    /*
+        var oLis = document.getElementsByTagName("div");
+        var arr = Array.prototype.slice.call(oLis);
+        console.dir(arr);
+        //-> 在IE6~8浏览器中，不支持借用数组的slice方法将元素集合的类数组转化为数组
+        // 但是对于arguments借用数组的方法是不存在任何兼容性问题的
+
+        // -> 标准
+        var arr = Array.prototype.slice.call(oLis);
+        // -> 不兼容(IE6 7 8 ) 元素集合 节点集合类数组 转化为数组
+        var arr = [];
+        for(var i=0;i<oLis.length;i++){
+            arr[arr.length]=oLis[i];
+        }
+
+    */
+    var oLis = document.getElementsByTagName("div");
+    var arr = utils.listToArray(oLis);
+
+
+</script>
+</body>
+</html>

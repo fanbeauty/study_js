@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    JS中的数据类型
+    基本数据类型
+        number  string boolean null undefined
+    引用数据类型
+        object : {} 、[] 、/^$ /、Date
+        function
+    区别：基本数据类型是按照值来操作的，引用数据类型是通过引用的地址来操作的。
+     */
+    function fn()
+    {
+        console.log("勿忘初心，方得始终");
+    }
+
+    console.log(fn); //把整个函数的定义部分(函数本身)在控制台输出
+
+    console.log(fn()); //把当前函数执行的返回结果（return后面是啥，返回啥，如果没有return。默认值返回undefined）
+
+
+    //1.当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境->全局作用域(window)
+    /**
+     * 2.预解释（变量提声）
+     *  在当前的作用域中，JS代码执行之前，浏览器首先会默认的把所有带var和function
+     *  的进行提前的声明或者定义
+     * 1)理解声明和定义
+     *
+     *  var num = 12;
+     *  声明(declare): var num;
+     *  定义(defined): num = 12;
+     *
+     * 2）对于带var和function关键字在预解释的时候操作还是不一样的
+     *  var --> 在预解释的时候只是提前声明
+     *  function --> 在预解释的时候提前的声明+定义都完成了
+     *
+     * 3）预解释只发生在当前的作用域下，例如：开始只对window下的进行预解释，只有函数执行的时候
+     * 才会对函数中的进行预解释
+     */
+    //3.JS中内存的分类
+    //栈内存：用来提供一个供JS代码执行的环境 --> 作用域（全局作用域/私有作用域）
+    //堆内存: 用来存储引用数据类型的值 ——-> 对象存储的是属性名和属性值，函数存储的是代码字符串...
+
+    console.log(num);
+    var num = 12;
+    console.log(num);
+
+    fn2(100,200);
+
+    function fn2(num1,num2) {
+        var total = num1+num2;
+        console.log(total);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

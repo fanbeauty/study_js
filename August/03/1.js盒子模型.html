@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS盒子模型</title>
+</head>
+<style type="text/css">
+                           *{
+                               margin:0px;
+                               padding:0px;
+                           }
+    #box{
+        margin:20px;
+        padding:20px;
+        height:200px;
+        width:200px;
+        border:10px solid red;
+    }
+</style>
+<body>
+<div id="box">笑一个吧，功成名就不是目的，让自己快乐快乐这才叫做意义。</div>
+<script type="text/javascript">
+    //1） 内容的宽度和高度：我们设置的width/height这两个样式就是内容的宽和高，如果没有设置高度height，容器高度会根据里面内容适应，这样获取的
+    //值，就是真实内容的高，如果设置固定的高度了，不管内容是多了还是少了，我们内容的高度都是设定的那个值；
+    //2) 真实内容的宽度和高度，这个代指实际内容的宽高（和我们设置的height没有必然联系），例如，我设置的height:200 ; 如果内容溢出了，
+    //真实内容的高度要把溢出的高度加起来
+
+    //JS盒子模型指的是:
+    //通过JS提供的一系列属性和方法，获取页面中样式信息值
+    //1.client系列
+    //->clientWidth/clientHeight:内容的宽度/高度加上左右/上下填充值（和内容溢出没有关系）
+    //->clientLeft 左边框的宽度 clientTop 上边框的高度 ===> border-Width
+    // ->contentEditable 内容是否可编辑
+
+    //2.offset系列
+    //-> offsetWidth/offsetHeight : clientWidth/clientHeight + 左右/上下边框
+    //-> offsetParent:当前元素父级参照物
+    //-> offsetLeft/offsetTop: 当前元素的外边框距离父级参照物内边框的偏移量
+
+    //3. scroll系列
+    // -> scrollWidth/scrollHeight： 和我们的clientWidth/clientHeight值一模一样（前提内容没有溢出）
+    //如果容器中内容有溢出，我们获取的结果如下规则:
+    //scrollWidth:真实内容的宽度（包含溢出）+左填充(左padding)
+    //scrollHeight:真实内容的高度（包含溢出）+上填充(上padding)
+    //scrollLeft/scrollTop：滚动条卷去的宽度/高度
+
+    var box1 = document.getElementById("box");
+    box1.contentEditable=true;
+
+    //所有操作浏览器
+    function win(attr,value)
+    {
+        if(typeof value === "undefined")
+        {
+            //获取
+            return document.documentElement[attr] || document.body[attr];
+        }
+        //设置
+        document.documentElement[attr] = value;
+        document.body[attr]=value;
+    }
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

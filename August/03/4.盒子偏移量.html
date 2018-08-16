@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>盒子偏移量</title>
+</head>
+<style type="text/css">
+    *{
+        margin:0px;
+        padding: 0px;
+    }
+    #outer{
+        margin: 50px auto;
+        padding:50px;
+        width: 180px;
+        height:180px;
+        border:10px solid #000;
+        background: orange;
+    }
+    #inner{
+        padding: 50px;
+        width: 80px;
+        height: 80px;
+        border:10px solid #000;
+        background: green;
+    }
+    #center{
+        width: 50px;
+        height: 50px;
+        border:10px solid #000;
+        background: red;
+    }
+
+</style>
+
+<body>
+<div id="outer">
+    <div id="inner">
+        <div id="center"></div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    var outer = document.getElementById("outer");
+    var inner = document.getElementById("inner");
+    var center = document.getElementById("center");
+
+    //1.parentNode:父亲节点，HTML结构层次关系
+    //    center.parentNode; //->inner
+    //    inner.parentNode; //->outer
+    //    outer.parentNode; //->document
+
+    //2.offsetParent:父级参照物
+    //如果不用position定位，元素的的父级参照物永远是body ，相当于海拔参照物是海平面
+    //能改变offsetParent的position有三种取值：relative absolute fixed
+//        outer.style.position = "relative";
+//        inner.style.position = "relative";
+//        console.log(center.offsetParent); // inner
+//        console.log(inner.offsetParent); // outer
+//        console.log(outer.offsetParent); // body
+
+    //写一个公共方法，计算一个盒子距离body标签的距离
+    //offsetLeft 当前元素左外边框距离父级元素左内边框的距离
+    //offsetTop 当前元素上外边框距离父级元素上内边框的距离
+    function getDistance(culEle) {
+        var left = culEle.offsetLeft;
+        var top = culEle.offsetTop;
+        while(culEle.offsetParent){
+            var culElePar = culEle.offsetParent;
+            left+= culElePar.clientLeft;
+            top += culElePar.clientTop;
+
+            left+=culElePar.offsetLeft;
+            top+=culElePar.offsetTop;
+            culEle = culElePar;
+        }
+        return {left:left,top:top};
+    }
+    console.log(getDistance(outer));
+</script>
+
+</html>

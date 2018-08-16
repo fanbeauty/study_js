@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+</div>
+<div id="div2">
+</div>
+<div id="div3">
+</div>
+
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+    //1.css
+    //->css:获取或者设置（批量设置）当前元素的样式值
+    /*
+    $box = $("#div2");
+    console.log($box.css("width")); //获取
+
+    $box.css({
+        background:"red",
+        opacity:0.1
+    }); //批量设置
+    */
+
+    //2.->offset:不管父级参照物是谁，获取当前元素距离BODY的偏移距离（left/top）
+    //2.->position:获取当前元素距离其父元素的偏移距离（left/top）
+    // $box = $("#div3");
+
+
+    //->scrollTop/scrollLeft:获取或设置元素卷去的高度或宽度
+
+    //height/width:获取或设置当前元素的高度和宽度 (contentWidth/Height)
+
+    //innerHeight/innerWidth: ==>clientHeight/clientWidth (contentWidth/Height + 上下/左右填充) 获取或设置元素可见区域宽高，
+    //设置的时候，保留padding值，把width值进行改变
+
+    //outerHeight/outerHeight: ==>offsetHeight/offsetWidth(clientHeight/clientWidth +上下/左右边框)
+    //获取或设置元素可见区域宽高(包含边框)，设置的时候，保留padding和border值，把width值进行改变
+    //如果传递进来的参数是true,把margin也计算进来
+
+    //2.jQuery非常强大的地方在于它的链式写法（执行完一个方法后，返回的结果仍然是一个jquery对象，这样就可以继续调用下一个方法执行）
+    //$box.css("background","red"),width()
+
+
+    //文档处理
+    //->append:向指定元素末尾位置追加一个新的元素
+    //->appendTo:元素.appendTo(容器)
+    //    var oDiv5 = document.createElement("div");
+    //    oDiv5.id="div4";
+    //    document.getElementById("div1").appendChild(oDiv5);
+    //    $("#div1").append(oDiv5);
+
+    //prepend//prependTo:向指定元素的前面追加一个元素
+
+    //after/before :在当前元素的后面或前面追加新的元素
+
+    //insertAfter/insertBefore :把选择器匹配到的元素追加到指定元素的前面或后面
+
+    //wrap  a.wrap(b) 用b把a包裹起来
+    //unwrap
+
+    //replaceAll(selector) :用匹配的结果替换selector匹配的元素
+
+    //empty 把当前元素所有内容都清空
+
+    //remove:从DOM中删除匹配的元素
+
+    //detach:
+
+    //clone
+
+
+
+    //筛选：从Jquery集合中筛选出
+    /*
+    eq(index)
+    first()
+    last()
+    hasClass(strClass):检测当前的元素集合中是否包含某一个样式类名
+
+    find  filter  children    //->常用的三个筛选方法
+    //filter:同级过滤 首先通过选择器获取一个集合，在获取的元素中进行二级筛选
+    //children:子集过滤
+    //find:后代过滤
+
+    //map
+    //has
+    //not
+    //slice
+
+    //next
+    //nextAll
+    //offsetParent
+    //parent 父亲节点
+    //parents 所有的父亲节点
+
+    //prev
+    //preAll
+    //siblings
+
+
+
+
+
+
+
+     */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //正则的捕获：正则的exec方法 ， 字符串的match方法， 字符串的replace方法
+
+    //replace ： 将原有的字符替换成我们的新的字符
+    //1) 在不使用正则的情况下，执行一次replace只能替换字符串中的一个
+    //2) 在replace中 ， 我们可以一次批量的把所有正则匹配的内容都替换到
+    var str = "zhufengpeixun~zhufengpeixun";
+    str = str.replace("zhufeng","珠峰");
+
+//    str = str.replace(/zhufeng/g,"珠峰");
+    console.log(str); //珠峰peixun~zhufenngpeixun
+
+
+</script>
+</body>
+</html>

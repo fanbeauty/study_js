@@ -1,0 +1,98 @@
+一、RESTful(Resource State Transform) API 设计规则
+GET:
+POST:
+PUT:
+DELETE:
+
+1.提交数据
+post:api/scenery
+    {
+        userId:'',
+        name:'',
+        address:'',
+        tags:'',
+        travellog:'',
+        state:''  //0看过 1未看过
+        date:'' //日期和时间
+        latitude:''
+        longitude:'',
+    }
+    1.1)图片的话，最好另存服务器
+    post:api/scenery/pic/upload
+    {
+        userId:
+        picture:['','',''],
+    }
+
+{
+    name:"undefined",
+    address:"undefined",
+    longitude:'116.407526',
+    latitude:'39.90403'
+    dateTime:'2017-10-23 22:22:49'
+    tags:["three","one"]
+    viewed:0
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.修改数据
+put:api/scenery 
+    {
+        userId:'',
+        name:'',
+        address:'',
+        tags:'',
+        travellog:'',
+        state:''  //0看过 1未看过
+        date:'' //日期和时间
+        picture:['','',''],
+        latitude:''
+        longitude:'',
+        
+    }
+3.获取数据
+get:api/scenery
+    {
+        status:''
+    }
+4.删除数据
+delete:api/scenery
+    {
+        scenery_id:''
+        user_id:''
+    }
+
+二、数据库设计(应该只有两张表)
+1.user表
+    id username sex create_time delete_time update_time
+
+2.scenery表
+    id userId name address tags state travellog date picture latitude longitude
+
+
+
+
+
+
+
+
+
+
+
+
+
+

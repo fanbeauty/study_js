@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //我们在JS中使用try catch 进行浏览器异常信息捕获
+    try{
+
+    }catch(e){
+
+    }finally {
+
+    }
+
+    //console.log(num) ; // num is not defined , 下面代码都不在执行
+
+    try{
+        console.log(num);
+    }catch(e){  //形参必须要写，一般写e
+        console.log(e.message);
+        //手动抛出一条信息。终止代码执行
+        throw new Error("当前网络繁忙，请稍后重试~~~~");
+
+        // ReferencenError 引用错误
+        // TypeError 类型错误
+        // RangeError 范围错误
+    }
+    console.log("ok");
+
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery选择器</title>
+    <style type="text/css">
+        body, div, ul, li, h2 {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .menu {
+            margin: 50px auto;
+            width: 150px;
+            border: 1px solid #008000;
+            border-bottom: none;
+        }
+
+        .menu h2 {
+            padding: 0 10px;
+            height: 30px;
+            line-height: 30px;
+            background: #E0F2BE;
+            cursor: pointer;
+        }
+
+        .menu li {
+            border-bottom: 1px solid #008000;
+        }
+
+        .menuList {
+            display: none;
+            padding: 5px 0 5px 20px;
+        }
+
+        .menuList li {
+            height: 25px;
+            line-height: 25px;
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body>
+<ul class="menu">
+    <li>
+        <h2>寸衫1</h2>
+        <ul class="menuList" style="display: block">
+            <li>长袖寸衫</li>
+            <li>短袖寸衫</li>
+            <li>男款</li>
+            <li>女款</li>
+        </ul>
+    </li>
+    <li>
+        <h2>寸衫1</h2>
+        <ul class="menuList">
+            <li>长袖寸衫</li>
+            <li>短袖寸衫</li>
+            <li>男款</li>
+            <li>女款</li>
+        </ul>
+    </li>
+    <li>
+        <h2>寸衫1</h2>
+        <ul class="menuList">
+            <li>长袖寸衫</li>
+            <li>短袖寸衫</li>
+            <li>男款</li>
+            <li>女款</li>
+        </ul>
+    </li>
+</ul>
+</body>
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+    var $oH2 = $(".menu h2");
+    $oH2.on("click",function () {
+        $(this).next().stop().slideToggle(500).parent().siblings().children("ul").slideUp(500);
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

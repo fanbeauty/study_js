@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用settimeout实现轮循动画</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #box{
+            position: absolute;
+            top: 0px;
+            left:0px;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="../05/js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var maxLeft = utils.win("clientWidth") - box.offsetWidth;
+    var step = 5,timer = null; //timer设置成全局的
+    //使用递归思想完成setTimeout的轮循动画；每一次在执行动画之前首先把上一次设置的那个没有用的
+    //定时器清除掉，节约我们的内存空间
+    function move() {
+        window.clearTimeout(timer);
+        var curLeft = utils.css(box,"left");
+        if(curLeft+step>maxLeft){ //边界判断加上步长计算
+            utils.css(box,"left",maxLeft);
+            return;
+        }
+        curLeft+=step;
+        utils.css(box,"left",curLeft);
+        timer = window.setTimeout(move,10);
+    }
+    move();
+
+
+</script>
+</body>
+</html>

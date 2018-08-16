@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件</title>
+</head>
+<body>
+    
+<script type="text/javascript">
+    //1.什么是事件
+    //->事件分为两部分：
+    /*
+    1)行为本身：浏览器天生就赋予其的行为 onclick onmouseover onmouseenter onmouseout onmouseleave onmousemove onmousedown onmouseup onmousewheel(鼠标滚轮滚动行为)
+    onscroll(滚动条滚动行为) onresize(window.resize 浏览器窗口大小改变事件) onload onunload onfocus(文本框获取焦点事件) onblur(文本框失去焦点事件)
+    onkeydown onkeyup(键盘的按下和抬起行为...)
+    哪怕我没有给上述行为绑定方法，事件也是存在的，当我们点击这个盒子的时候，同样会触发其onclick行为，只是什么都没有做而已
+
+    2)事件绑定：给元素的某一个行为绑定方法
+    方法1：DOM零级事件绑定 oDiv.onclick = function(){}  onclick这个行为定义在当前元素的私有属性上
+    方法2: DOM二级事件绑定 oDiv.addEventListener("click",function(){},false) addEventListener这个属性是定义在当前元素所属EventTarget这个类的原型上
+    */
+</script>
+</body>
+</html>

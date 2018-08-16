@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //正则分组：
+    //1.改变优先级
+    //2.分组引用
+    //  \2代表和第二个分组出现一模一样的内容 ；  \1代表和第一个分组出现一模一样的内容
+    // 一模一样：和对应的分组中的内容的值都要一样
+    /*
+    var reg = /(\w)\1(\w)\2/;
+    console.log(reg.test("zzff"));  //->true
+    console.log(reg.test("z0f_"));  //->true
+    */
+
+    //3.分组捕获：
+    //?: :在分组中，?:的意思是只匹配不捕获
+
+    //我们用exec执行三次，每一次不仅仅把大正则匹配的获取到，而且还可以获取第一个分组匹配的内容
+    var reg = /zhufeng(\d+)/g;
+    var str = "zhufeng2015zhufeng2016zhufeng2017";
+    var arr = [];
+    var res = reg.exec(str);
+    while(res)
+    {
+        arr.push.call(arr,res[0],res[1]);
+        res = reg.exec(str);
+    }
+    console.log(arr); // ["zhufeng2015", "2015", "zhufeng2016", "2016", "zhufeng2017", "2017"]
+
+    console.log(str.match(reg)); // ["zhufeng2015", "zhufeng2016", "zhufeng2017"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

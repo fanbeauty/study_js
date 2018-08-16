@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM2级事件</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #box{
+            margin:20px auto;
+            width: 200px;
+            height:200px;
+            background: lightgreen;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript">
+    //->我们使用DOM2事件绑定，其实是让box通过原型链一直找到EventTarget这个内置类原型上的addEventListener方法实现
+    //DOM0级绑定：只能给一个元素的行为绑定一个方法，第二次绑定会把前面的覆盖掉
+    //1)DOM2级事件可以给某个元素的某个行为绑定多个方法
+    var box = document.getElementById("box");
+    box.addEventListener("click",function (e) {
+        console.log(1);
+    },false);
+    box.addEventListener("click",function (e) {
+        console.log(2);
+    },false)
+
+    //2)DOM2比DOM0行为类型更多
+    //->DOMContentLoaded:当页面中的DOM结构（HTML结构）加载完成后，触发这个行为
+
+    //1、DOM2事件绑定
+    //[标准浏览器]
+    //->方法执行的时候,方法里面的this是当前元素
+    //->只能给某一个元素的同一个事件行为绑定多个"不同"的方法,方法相同,自己会过滤到重复的(三个参数完全一样才算是重复,只要有一个不一样都不是重复)
+    //->当行为触发的时候,会按照之前绑定的先后顺序依次的去执行
+    //    document.body.addEventListener("click", fn1, false);
+    //    document.body.addEventListener("click", fn1, false);
+    //    document.body.removeEventListener("click", fn1, false);
+
+    //[IE6~8]
+    //->语法的区别:
+    //1)标准浏览器使用addEventListener/removeEventListener实现DOM2的绑定/移除绑定；IE6~8使用attachEvent/detachEvent来实现绑定和移除绑定；
+    //2)标准浏览器传递三个参数,最后一个参数可以控制方法是在捕获阶段还是冒泡阶段发生(一般都用冒泡),IE6~8不能控制,只能在冒泡阶段发生；
+    //3)标准浏览器第一个参数只需要写事件类型即可,而IE6~8下需要加上on才可以
+
+    //->THIS问题:
+    //给元素的某一个行为绑定多个不同的方法，行为触发的时候执行方法，在标准浏览器中，方法执行里面的THIS是当前元素，但是在IE6~8中方法中的THIS是window
+
+    //->重复问题:
+    //标准浏览器是不允许给一个元素的同一个行为绑定相同的方法的(即使绑定多个也只留一个)，但是IE6~8下却可以重复绑定，浏览器不会默认的对绑定的方法进行重复判断
+
+    //->顺序问题:
+    //标准浏览器会按照绑定的顺序依次的去执行方法，IE6~8没有固定的顺序，执行方法的时候和绑定的顺序没啥关系，是乱序执行的
+
+</script>
+</body>
+</html>

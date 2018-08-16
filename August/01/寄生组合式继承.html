@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function A() {
+        this.x = 100;
+    }
+    A.prototype.getX = function () {
+
+    };
+    function B() {
+        A.call(this); //-> n.x = 100
+    }
+
+    B.prototype = createObject(A.prototype);
+    B.prototype.constructor = B;
+
+    var n = new B;
+
+    function createObject(o) {
+        function Fn() {
+
+        }
+        Fn.prototype = o;
+        return new Fn;
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

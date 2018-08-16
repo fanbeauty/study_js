@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul id="ul1">
+    <li>98</li>
+    <li>87</li>
+    <li>100</li>
+    <li>91</li>
+    <li>93</li>
+    <li>92</li>
+</ul>
+</body>
+<script type="text/javascript">
+    var oUl = document.getElementById("ul1");
+    var oLis = oUl.getElementsByTagName("li");
+
+    //1.先把元素集合类数组准换为数组
+    var arr = Array.prototype.slice.call(oLis);
+    //2.给数组进行排序
+    arr.sort(function (a, b) {
+        return parseFloat(a.innerHTML) - parseFloat(b.innerHTML);
+    })
+    //3.按照ary中存储的最新顺序依次的把对应的li添加到页面中
+    var frg = document.createDocumentFragment();
+    for (var i = 0; i < arr.length; i++) {
+        frg.appendChild(arr[i]);
+    }
+    oUl.appendChild(frg);
+    frg = null;
+
+</script>
+
+</html>

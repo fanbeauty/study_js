@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setCss</title>
+</head>
+<style type="text/css">
+    *{
+        margin: 0px;
+        padding:0px;
+    }
+    #box{
+        /*position: absolute;*/
+        /*top:0px;*/
+        /*left:0px;*/
+        width:100px;
+        height:100px;
+        background: lightgreen;
+    }
+</style>
+<body>
+
+<div id="box"></div>
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+//    var curLeft = utils.getCss(box,"left");
+//    console.log(curLeft);
+    //->在JS中给元素设置样式属性值，我们只能通过curEle.style[attr]=value来设置行内样式
+    //获取的话有两种1.curEle.style[attr]; 但是只能获取设置过的行内元素
+    //2.window.getComputedStyle(Ele,null).attr 获取经浏览器计算过的属性
+    box.style.left += 100 +"px";
+
+
+    //->setCss:给当前元素的某一个样式属性设置值（增加在行内样式上）
+    function setCss(curEle,attr,value) {
+        //在JS中设置float样式值的话也需要处理兼容
+        if(attr==="float"){
+            curEle["style"]["cssFloat"] = value;
+            curEle["style"]["styleFloat"]= value;
+            return;
+        }
+        //如果打算设置的是元素的透明度，我们需要设置两套样式来兼容所有的浏览器
+        if(attr === "opacity"){
+            curEle["style"]["opacity"] = value;
+            curEle["style"]["filter"] = "alpha(opacity+"+value*100+")";
+            return;
+        }
+        //对于某些样式属性，如果传递进来的值没有加单位，我们需要把单位默认的补充上，这样更人性化。
+        var reg = /^(width|height|left|top|right|bottom|((margin|padding)(Top|Bottom|left|right)?))$/i;
+        if(reg.test(attr)){
+            if(!isNaN(value)){ //判断传递进来的值是不是有效数字，如果是有效数字的话，证明当前传递进来的值没有加单位，我们给补充单位
+                curEle["style"][attr] = value+"px";
+                return;
+            }
+        }
+        curEle["style"][attr] = value;
+    }
+
+//    setCss(box,"opacity",0.5);
+//    setCss(box,"float","right");
+//    setCss(box,"borderTop","10px solid black");
+    utils.css(box,{
+        opacity:0.5,
+        float:"right",
+    });
+    utils.css(box,"borderTop","10px solid black");
+    console.log(utils.css(box,'width'));
+</script>
+</body>
+</html>

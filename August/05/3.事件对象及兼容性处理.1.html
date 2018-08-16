@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件对象及兼容性处理</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+<script type="text/javascript">
+    var oDiv = document.getElementById("div1");
+    //1.我们是把匿名函数定义的部分当做一个值赋值给oDiv的点击行为（函数表达式）
+    //当我们触发oDiv的点击行为的时候，会执行对应绑定上的方法
+    //重要：不仅仅把绑定的方法执行，而且浏览器还默认的给这个方法传递了一个参数值->MouseEvent:鼠标事件对象
+    //1）它是一个对象数据类型值，里面包含了很多的属性名和属性值，都是用来记录当前鼠标相关信息
+    //2) MouseEvent --> UIEvent --> Event -->Object
+    //3) MouseEvent记录的是页面中唯一一个鼠标每一次触发时的相关信息，和到底是在哪个元素上触发的没有关系
+   
+    //2.关于事件对象MouseEvent的兼容性问题
+    //->1）事件对象本身的获取存在兼容性问题：标准浏览器中是浏览器给方法传递参数，我们只需要定义形参e就可以获取到；
+    //在IE6~8中浏览器不会给方法传递参数，我们如果需要的话，需要到window.event中获取查找
+    // e = e || window.event; 解决
+    oDiv.onclick = function(e){
+
+        e = e || window.event;
+
+        //e.clientX / e.clientY 当前鼠标触发点距离当前屏幕（而不是body）左上角X/Y轴的坐标
+        //e.type:存储的是当前鼠标触发的行为类型
+        //e.target: 事件源，当前鼠标触发的是哪个元素，那它存储的就是哪个元素,但是在IE6~8下不存在这个属性（e.target的值是undefined），我们使用e.srcElement来获取事件源
+        //e.pageX / e.pageY 当前鼠标触发点距离body(页面第一屏幕)左上角的x/y的坐标，但是在IE6~8下不存在这个属性，我们通过clientY+滚动条卷去的高度 也可以
+        e.pageX = e.pageX || e.clentX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+        e.pageY = e.pageY || e.clentY + (document.documentElement.scrollTop || document.body.scrollTop);
+
+        //e.preventDefault :阻止浏览器的默认行为，在IE6~8中没有这个方法，我们需要使用e.returnValue=false;来代替
+        e.preventDefault? e.preventDefault(): e.returnValue = false;
+
+        //e.stopPropagation:阻止事件的冒泡传播，在IE6~8中不兼容，使用e.cancelBubble=true来代替
+       
+    };
+    document.body.onclick = function(e){
+        e = e || window.event;
+        e.target = e.target || e.srcElement;
+        console.log(e.target);
+    };
+
+    /*
+    键盘事件对象 KeyboardEvent 
+    
+    */
+
+
+
+</script>
+</body>
+</html>

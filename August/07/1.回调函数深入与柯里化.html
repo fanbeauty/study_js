@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>foreach与map</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    var obj = {name:'jack'};
+    var arr = [10,11,12,13,14];
+
+    //但是在IE6~8下Array.prototype上没有forEach、map方法
+    //现在解决forEach、map的兼容性
+
+    Array.prototype.myMap = function myMap(callback,context) {
+        if("map" in Array.prototype)
+        {
+            return this.map(callback,context);
+        }
+        //在IE6~8下处理map的执行逻辑
+        var arrMap = [];
+        for(var i=0,len=this.length;i<len;i++)
+        {
+            var val = callback && callback.call(context,this[i],i,this);
+            arrMap[arrMap.length] = val;
+        }
+        return arrMap;
+    }
+
+    arr.myMap(function (value,index) {
+        console.log(this===obj);
+    },obj);
+
+    /*
+    Array.prototype.myforEach = function myforEach(callback,context) {
+        if("forEach" in Array.prototype)
+        {
+            this.forEach(callback,context);
+        }
+        //IE6~8下编写回调执行的逻辑
+        for(var i=0,len=this.length;i<len;i++)
+        {
+            callback && callback.call(context,this[i],i,this);
+        }
+    };
+    */
+    /*
+    arr.forEach(function (value,index,input) {
+
+    },obj);
+    */
+    /*
+    arr.myforEach(function (value,index,input) {
+        console.log(this===obj);
+    },obj);
+    */
+
+    /*
+    //forEach函数中的this是arr
+    arr.forEach(function (value,index) {
+        console.log(this);
+    },obj); //->不管是forEach或map都支持第二个参数值，第二个参数的意思是把匿名回调函数中的this进行修该
+    */
+
+    /*
+    bind的话，函数不会立即执行，可以
+    arr.forEach(function (value,index) {
+        console.log(this);
+    }.bind(obj));
+    */
+    /*
+    arr.forEach(function (value,index) { //匿名函数中的this一般都是window,改变匿名函数中的this用call,bind
+        console.log(this);
+    }.call(obj)); //会报错，undefined is not a function ，call会让匿名函数立即执行，执行的结果是undefined
+    */
+</script>
+</body>
+</html>

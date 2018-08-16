@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Less入门</title>
+    <link type="text/css" rel="stylesheet/less" href="./LESS/test1.less" />
+</head>
+<body>
+<script type="text/javascript" charset="utf-8">
+    var less = {
+        env:'development',
+        pool:'1000'
+    }
+</script>
+<script type="text/javascript" src="less.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    less.watch();
+</script>
+<script type="text/javascript">
+
+    /*
+    监视模式
+        1)监视模式是客户端的一个功能，这个功能允许你当你改变样式的时候，客户端将自动刷新。
+        2)要使用它，只要在URL后面加上'#!watch'，然后刷新页面就可以了。另外，你也可以通过在终端运行less.watch()来启动监视模式。
+
+</script>
+</body>
+</html>

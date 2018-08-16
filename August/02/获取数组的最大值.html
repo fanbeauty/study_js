@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组的最大值和最小值</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    //1.使用 Array的sort方法
+    /*
+    var arr = [12,34,56,33,22,67,98,45,10];
+    arr.sort(function (a,b) {
+        return a-b;
+    });
+    console.log(arr.pop());
+    console.log(arr.shift());
+    */
+
+    //2.使用Math的 max/min方法
+    var arr = [12,34,56,33,22,67,98,45,10];
+    var min = Math.min(arr);
+    console.log(min); //NaN （不能放数组）
+    console.log(Math.min(12,34,56,33,22,67,98,45,10));
+
+
+    console.log(Math.min.apply(null,arr));  // apply作用
+
+
+
+    //3.自己写一个函数
+    /*
+    var arr = [12,34,56,33,22,67,98,45,10];
+
+    function minimal(arr) {
+        var min = arr[0];
+        for(var i=1;i<arr.length;i++){
+            if(arr[i]<min){
+                min = arr[i];
+            }
+        }
+        return min;
+    }
+
+    console.log(minimal(arr));
+    */
+
+
+    // 4. eval : 把字符串变成JS表达式执行
+    // eval("11+22+33")  ---> 66
+    //console.log(Math.min([12,34,56,33,22,67,98,45,10])); //NaN
+    // join/toString "12,33,22,67,98,45,10,34,56"
+    // eval("12,33,22,67,98,45,10,34,56") 56 只获取到了最后一项的值
+   //console.log(Math.min(12,33,22,67,98,45,10,34,56));
+
+    // 5. 括号表达式
+    function fn1() { console.log(this);}
+    function fn2() { console.log(this);}
+    var obj = {name:"珠峰培训",fn:fn2};
+    //;(fn1,fn2)(); // ->2 只有fn2执行了 ->(x1,x2,x3,x4...)括号表达式，一个括号中出现多项内容，中间用“,”隔开，但是我们最后获取到的结果只有最后一项
+    (fn2,obj.fn)(); // this->window ->执行的是obj.fn,但是执行的时候里面的this变成了window,而不是obj
+    obj.fn(); // this->obj
+    (obj.fn)(); //this->obj
+
+    // 6. 字符串拼接
+    var arr = [12,34,56,33,22,67,98,45,10];
+    console.log(eval("Math.max("+arr.toString()+")"));
+
+
+
+
+
+
+</script>
+</body>
+</html>

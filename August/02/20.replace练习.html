@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+
+    /*
+    var str = "20170904";
+    var arr = ["零","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
+
+    var reg = /\d+?/g;
+
+    str = str.replace(reg,function () {
+        //获取取到的值
+        var value = arguments[0];
+        return arr[value];
+    });
+
+    console.log(str);
+    */
+
+    //2,获取一个字符串中出现次数最多的字符，并且获取出现的次数
+    /*
+    var str ="zhufengpeixunyangfanqihangaaaaaa";
+
+
+    var counts = {};
+
+    str.replace(/\w/g,function () {
+        //获取捕获的字符
+        var char = arguments[0];
+        if(char in counts){
+            counts[char]++;
+        }else{
+            counts[char] = 1;
+        }
+    });
+
+    var max = 0;
+    var keyIndex = '';
+    for( key in counts){
+        if(counts[key]>max){
+            max = counts[key];
+            keyIndex = key;
+        }
+    }
+
+    console.log(keyIndex,max);
+    */
+
+
+    //3.模板引擎实现的初步原理
+    /*
+    var str = "my name is {0}, my age is {1}, i come from {2}, i learn {3}";
+
+    var arr = ["fan", "24", "china", "javascript"];
+
+//    str = str.replace(/{\d+}/g, function () {
+//        return arguments[0].replace(/\d+/, function () {
+//            return arr[arguments[0]];
+//        }).replace(/[{}]/g, function () {
+//            return '';
+//        });
+//
+//    });
+
+    //改进 ==>  超简单
+    //既要获得{0},也要获取0 ，所以用到分组
+    str = str.replace(/{(\d+)}/g,function () {
+        return arr[arguments[1]];
+    });
+
+
+
+    console.log(str);
+
+    */
+
+
+  //思考题
+    //1. "2015-9-22 13:10:0" ---> "2015年09月22日 13时10分00秒"
+    //2. 把一个字符串中所有单词的首字母大写 "zhu feng pei xun" => "Zhu Feng Pei Xun";
+
+/*
+    var  str = "zhu feng pei xun";
+
+    str = str.replace(/\b\w+\b/g,function () {
+        return arguments[0][0].toUpperCase()+arguments[0].replace(/\w/,function () {
+            return '';
+        });
+    });
+
+    console.log(str);
+*/
+
+    //4. https://www.youtube.com/results?search_query=movie&pbjreload=10
+    // => obj = { search_query:"movie", pbjreload:10 }
+
+    var str = "https://www.youtube.com/results?search_query=movie&pbjreload=10";
+
+    var obj = {};
+    /*
+    str.replace(/[?&]([=\w]+)/gi,function () {
+        var arr = arguments[1].split("=");
+        obj[arr[0]] = arr[1];
+    });
+    */
+
+    str.replace(/[^?=&]+=([^?=&]+)/g,function () {
+//        console.log(arguments[0]);
+
+        obj[arguments[1]] = arguments[2];
+
+    })
+
+    console.log(obj);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

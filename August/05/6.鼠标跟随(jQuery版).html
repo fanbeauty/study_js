@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>鼠标跟随</title>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        img {
+            display: block;
+            border: none;
+        }
+
+        .box {
+            position: relative;
+            width: 450px;
+            margin: 20px auto;
+        }
+
+        .box > img {
+            float: left;
+            margin-left: 10px;
+            width: 100px;
+            height: 75px;
+            border: 1px solid #008000;
+        }
+
+        #mark {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 10;
+            width: 400px;
+            height: 300px;
+            border: 1px solid #0077B0;
+            display: none;
+        }
+
+        #mark img {
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="box" id="box">
+    <img src="img/apple_1.jpg" bigImg="img/apple_1_bigger.jpg"/>
+    <img src="img/apple_2.jpg" bigImg="img/apple_2_bigger.jpg"/>
+    <img src="img/apple_3.jpg" bigImg="img/apple_3_bigger.jpg"/>
+    <img src="img/apple_4.jpg" bigImg="img/apple_4_bigger.jpg"/>
+    <div id="mark">
+        <img src="img/apple_1_bigger.jpg"/>
+    </div>
+</div>
+<script type="text/javascript" src="../06/jquery.min.js"></script>
+<script type="text/javascript">
+    // ==> $(document).ready() 当页面中的html结构都加载完成在执行代码
+    $(function () {
+        var $box = $("#box"), $mark = $("#mark");
+        var $boxOffset = $box.offset(); //获取当前元素距离body的偏移
+        $box.children("img").bind("mouseover",function (e) {
+            e = e || window.event;
+            var left = e.clientX - $boxOffset.left+10;
+            var top = e.clientY - $boxOffset.top +10;
+            $mark.stop().show(500).css({top:top,left:left}).children("img").attr("src",e.target.getAttribute("bigImg")); //hide toggle slideDown slideUp fadeIn fadeOut animate
+        }).bind("mousemove",function (e) {
+            e = e || window.event;
+            var left = e.clientX - $boxOffset.left+10;
+            var top = e.clientY - $boxOffset.top +10;
+            $mark.stop().show(500).css({top:top,left:left}).children("img").attr("src",e.target.getAttribute("bigImg"));
+        }).bind("mouseout",function () {
+            $mark.stop().hide(500);
+        })
+    });
+</script>
+</body>
+</html>

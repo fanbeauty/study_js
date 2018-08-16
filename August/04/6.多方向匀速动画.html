@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多方向匀速动画</title>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #box{
+            position: absolute;
+            top: 0px;
+            left:0px;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript" src="../05/js/utils.js"></script>
+<script type="text/javascript" src="./tween.js"></script>
+<script type="text/javascript">
+    /*
+    function linear(t,b,c,d) {
+        return c*t/d+b;
+    }
+    var box = document.getElementById("box");
+    var beginLeft = utils.css(box,"left"),beginTop = utils.css(box,"top");
+    var targetLeft = 1000,targetTop = 500;
+    var changeLeft = targetLeft-beginLeft, changeTop = targetTop-beginTop;
+    var duration = 1000; time=0;
+    box.timer = window.setInterval(function () {
+        time += 10;
+        if(time>=duration){
+            utils.css(box,{
+                left:targetLeft,
+                top:targetTop
+            });
+            window.clearInterval(box.timer);
+            return;
+        }
+        var curLeft = linear(time,beginLeft,changeLeft,duration);
+        var curTop = linear(time,beginTop,changeTop,duration);
+        utils.css(box,{
+            left:curLeft,
+            top:curTop
+        });
+    },10);
+    */
+
+    //使用tween封装库来做
+    var box = document.getElementById("box");
+    var box = document.getElementById("box");
+    var beginLeft = utils.css(box,"left"),beginTop = utils.css(box,"top");
+    var duration = 1000;
+    huanAnimate(box,{
+        left:1000,
+        top:500,
+        },1000,4,function () {
+        utils.css(this,"background","lightGreen");
+    });
+
+</script>
+</body>

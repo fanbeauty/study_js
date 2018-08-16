@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //预解释是毫无节操的一种机制
+
+    //in : "num" in window 判断num是否是window对象的一个属性，是的话返回true,否则返回false
+
+    //1.预解释的时候，不管条件是否成立，都要把带var的进行提前声明
+    //window的预解释:
+    // var num; --> window.num ;
+    if(!("num" in window)){  // "num" in window --> true
+        var num=12;
+    }
+    console.log(num);  // undefined
+
+    //2.函数定义的两种方法
+    fn(); //-->ok
+    function fn() {
+        console.log("ok");
+    }
+    fn(); // -->ok
+
+    //2.预解释的时候只预解释 "=" 左边的，右边的是值，不参与预解释
+    //匿名函数之函数表达式：把函数定义的部分当做一个值，赋给我们的变量/元素的某一个事件
+    //window下的预解释：var fn;
+    fn(); // --> undefined()  Uncaught TypeError : fn is not a function
+    var fn = function () {
+        console.log("ok");
+    };
+
+    //3.自执行函数定义的那个function在全局作用域下不进行预解释，当代码执行到这个
+    //位置的时候定义和执行一起完成
+    //自执行函数：定义和执行一起完成
+    (function () {})(100) ;
+
+    //4.函数体中，return下面的代码虽然不在执行了，但是需要进行预解释
+    //return 后面跟着都是我们返回的值，所以不进行预解释
+    function fn() {
+        console.log(num);
+        return function () {
+            
+        };
+        var num = 100;
+    }
+    fn();
+
+    //5.在预解释的时候，如果名字已经声明过了，不需要重新声明，但是需要重新赋值
+    // 在JS中，如果变量的名字和函数名字重复了，也算冲突
+    //预解释:var fn; window.fn;    fn = xxxfff000 window.fn = xxxfff000;
+    var fn = 13;
+    function fn() {
+        console.log("ok");
+    }
+
+
+    //window预处理：
+    //声明+定义  fn = xxxfff111
+    //声明 var fn ; （不需要重新声明)
+    //声明（不重复进行）+定义 fn = xxxfff222 （不需要重新声明）
+    // -> fn = xxxfff222;
+    fn(); // 3
+    function fn() { console.log(1); }
+    fn(); // 3
+    var fn=10;
+    fn(); // ->10()  Uncaught TypeError: fn is not a function
+    function fn() { console.log(3); }
+    fn()
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

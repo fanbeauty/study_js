@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取当前元素的哥哥节点</title>
+</head>
+<body>
+<div id="div1">
+    <div id="div2"></div>
+    <div id="div3"></div>
+    <div id="div4">
+        <p></p>
+        <p></p>
+    </div>
+    <p id="p1"></p>
+    <p id="p2"></p>
+    <p id="p3"></p>
+</div>
+<script type="text/javascript">
+
+    var oDiv3 = document.getElementById("div3");
+    var p3 = document.getElementById("p3");
+
+    //获取当前元素的所有子节点
+    function children(culEle, tagname) {
+        var ary = [];
+        if (/MSIE(6|7|8)/i.test(navigator.userAgent)) {
+            var nodeList = culEle.childNodes;
+            for (var i = 0; i < nodeList.length; i++) {
+                var curNode = nodeList[i];
+                if (curNode.nodeType === 1) {//当前节点是元素节点
+                    ary.push(curNode);
+                }
+            }
+        } else {
+            ary = [].slice.call(culEle.children);
+        }
+        //二次筛选：过滤掉tagname元素
+        if (typeof tagname === "string") {
+            for (var k = 0; k < ary.length; k++) {
+                var curEleNode = ary[k];
+                if (curEleNode.nodeName.toLowerCase() !== tagname.toLowerCase()) {
+                    //不是我想要的标签
+                    ary.splice(k, 1);
+                    k--;
+                }
+            }
+        }
+        return ary;
+    }
+
+    //获取当前元素的哥哥节点
+    function prev(curEle) {
+        if (/MSIE(6|7|8)/i.test(navigator.userAgent)) {
+            var pre = curEle.previousSibling;
+            while (pre && pre.nodeType !== 1) {
+                pre = pre.previousSibling;
+            }
+        } else {
+            var pre = curEle.previousElementSibling;
+        }
+        return pre;
+    }
+
+    //获取当前元素下一个弟弟节点
+    function next(curEle) {
+        if (/MSIE(6|7|8)/i.test(navigator.userAgent)) {
+            var next = curEle.nextSibling;
+            while (next && next.nodeType !== 1) {
+                next = next.nextSibling;
+            }
+        } else {
+            var next = curEle.nextElementSibling;
+        }
+        return next;
+    }
+
+    //获取所有的哥哥节点
+    function prevAll(curEle) {
+        var ary = [];
+        var pre = prev(curEle);
+        while (pre) {
+            ary.unshift(pre);
+            pre = prev(pre);
+        }
+        return ary;
+    }
+
+    //获取所有的弟弟节点
+    function nextAll(curEle) {
+        var ary = [];
+        var nextEle = next(curEle);
+        while (nextEle) {
+            ary.push(nextEle);
+            nextEle = next(nextEle);
+        }
+        return ary;
+    }
+
+    //获取相邻的两个兄弟元素
+    function sibling(curEle) {
+        var pre = prev(curEle);
+        var nextEle = next(curEle);
+        var arr = [];
+        pre ? arr.push(pre) : null;
+        nextEle ? arr.push(nextEle) : null;
+        return arr;
+    }
+
+    //获取所有的兄弟节点
+    function siblings(culEle) {
+        var pres = prevAll(culEle);
+        var nexts = nextAll(culEle);
+        return pres.concat(nexts);
+    }
+
+    //获取当前元素的索引
+    function index(curEle) {
+        return prevAll(curEle).length;
+    }
+
+
+    //获取元素的第一个子节点
+    function firstChild(curEle) {
+        return children(curEle) ? children(curEle)[0] : null;
+    }
+
+    //获取元素的最后一个子节点
+    function lastChild(curEle) {
+        var chs = children(curEle);
+        return chs.length > 0 ? chs[chs.length - 1] : null;
+    }
+
+
+    console.log(prevAll(p3));
+
+</script>
+</body>
+</html>

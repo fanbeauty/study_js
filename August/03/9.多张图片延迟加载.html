@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0"/>
+    <title>多张图片延迟加载</title>
+    <style type="text/css">
+        *{
+            margin:0px;
+            padding:0px;
+            font-family: "Microsoft YaHei UI";
+        }
+
+        #news{
+            width: 90%;
+            margin: 0px auto;
+        }
+        #news li{
+            list-style:none;
+            display: flex;
+            height: 100px;
+            border-bottom: 1px dashed lightgreen;
+        }
+
+        #news li div:nth-child(1){
+            flex: 0 0 110px;
+            margin:15px;
+        }
+        #news li div:nth-child(2){
+            flex:1;
+            overflow: hidden;
+        }
+        #news li div:nth-child(2) h2{
+            margin-top:15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+        #news li div:nth-child(2) p{
+            margin-top:5px;
+            line-height: 15px;
+            height:30px;
+            font-size:15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="news">
+    <li>
+        <div>
+            <img width="110px" height="70px" src="https://www.huany.top/Tanabata/huan3.jpeg">
+        </div>
+        <div>
+            <h2>笑一个吧，功成名就不是目的，让自己快乐快乐这才叫做意义。</h2>
+            <p>对这个世界如果你有太多的抱怨，跌倒了你就不敢继续往下走，为什么人这么脆弱和堕落，请你睁开眼，勇敢的走下去</p>
+        </div>
+    </li>
+    <li>
+        <div>
+            <img width="110px" height="70px" src="https://www.huany.top/Tanabata/huan3.jpeg">
+        </div>
+        <div>
+            <h2>笑一个吧，功成名就不是目的，让自己快乐快乐这才叫做意义。</h2>
+            <p>对这个世界如果你有太多的抱怨，跌倒了你就不敢继续往下走，为什么人这么脆弱和堕落，请你睁开眼，勇敢的走下去</p>
+        </div>
+    </li>
+</ul>
+</body>
+</html>

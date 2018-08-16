@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+</head>
+<style type="text/css">
+    *{
+        margin: 0px;
+        padding:0px;
+        font-size: 14px;
+        -webkit-user-select:none;
+    }
+    ul,li{
+        list-style-type: none;
+    }
+    .box{
+        margin: 10px auto;
+        width: 500px;
+    }
+
+    .box ul{
+        position: relative;
+        top:1px;
+    }
+
+    .clear{
+        zoom:1;
+    }
+
+    .clear:after{
+        display: block;
+        width: 0px;
+        height:0px;
+        content: "";
+        visibility: hidden;
+        overflow: hidden;
+        clear:both;
+    }
+
+    .box ul li{
+        float: left;
+        margin-right:15px;
+        width: 100px;
+        height:30px;
+        border: 1px solid green;
+        border-bottom-color: lightblue;
+        line-height:30px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+
+
+
+
+    .box ul li.select{
+        background: lightblue;
+    }
+
+    .box div{
+        height:150px;
+        line-height:150px;
+        background: lightblue;
+        border:1px solid green;
+        text-align: center;
+        display: none;
+    }
+
+    .box div.select{
+        display: block;
+    }
+
+</style>
+<body>
+    <div class="box" id="tabFir">
+        <ul class="clear">
+            <li class="select">页卡一</li>
+            <li>页卡二</li>
+            <li>页卡三</li>
+        </ul>
+        <div class="select">内容一</div>
+        <div>内容二</div>
+        <div>内容三</div>
+    </div>
+
+
+<script type="text/javascript">
+
+    var tabFir = document.getElementById("tabFir"),oLis = tabFir.getElementsByTagName("li"),oDivs=tabFir.getElementsByTagName("div");
+
+    function changeTab(n) {
+        for(let i=0;i<oLis.length;i++){
+            oLis[i].className = null;
+            oDivs[i].className= null;
+        }
+        oLis[n].className = "select";
+        oDivs[n].className = "select";
+    }
+
+    /*
+    下面这个方法不能实现选项卡
+    不行的原因；
+    1.JS中所有的事件绑定都是异步编程，开始我们只是给元素的点击行为绑定一个方法，但是需要手动点击才会执行这个方法，在此期间
+    ，不会干等着点击，继续执行下一次循环，当点击的时候，循环早已经结束。
+    2.在给元素绑定事件的时候，绑定的这个方法还只是定义的部分，在此方法中存储的都是字符串，我们看到的i只是一个字符。
+    3.当点击的时候，执行对应的绑定方法，形成一个私有作用域A，在A中会使用到变量i,而i不是自己私有的是上级作用域的i，此时的i，已经变成
+    oLis.length了
+     */
+
+//    for(let i=0;i<oLis.length;i++){
+//        oLis[i].onclick = function () {
+//            changeTab(i);
+//        }
+//    }
+
+    /**
+     * 解决办法
+     * 1)使用自定义属性方式
+     * 我们要操作当前元素的某个值，还不想受执行顺序和环境的影响，我们最简单的方式就是把其放到自己自定义属性上即可
+     */
+//    for(let i=0; i<oLis.length;i++){
+//        oLis[i].index = i;
+//        oLis[i].onclick = function () {
+//            changeTab(this.index);
+//        }
+//    }
+
+    /**
+     * 2）闭包 1
+     * 执行三次，形成三个不销毁私有作用域，把索引都存到私有作用域中
+     */
+//    for(let i=0; i<oLis.length;i++){
+//        ~function (i) {
+//            oLis[i].onclick = function () {
+//                changeTab(i);
+//            }
+//        }(i);
+//    }
+
+    /**
+     * 2）闭包 2
+     * 执行三次，形成三个不销毁私有作用域，把索引都存到私有作用域中
+     */
+    for(let i=0; i<oLis.length;i++){
+            oLis[i].onclick = (function (i) {
+                return function(){
+                    changeTab(i);
+                }
+            })(i);
+    }
+
+
+
+</script>
+</body>
+</html>

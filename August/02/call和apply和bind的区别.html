@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    "use strict"; //告诉浏览器接下来的JS代码将按照严格模式进行编写
+    var obj = {name:"珠峰"};
+    function fn(num1,num2) {
+        //console.log(num1+num2);
+        console.log(this);
+    }
+    //fn(100,200); // this->window
+
+    fn.call(100,200);  // this->100 num1 = 200, num2=undefined
+
+    fn.call(obj,100,200); //this->obj num1=100,num2=200
+
+    fn.call(); //this->window  在严格模式下 this->undefined
+    fn.call(null); //this->window  在严格模式下 this->null
+    fn.call(undefined); //this->window  在严格模式下 this->undefined
+
+
+    //apply和call方法是一模一样的，都是改变方法this的关键字，并把方法执行；而且在严格模式下和
+    //非严格模式下对于第一个参数是null/undefined这种情况的规律也是一样的。
+    fn.call(obj,100,200);
+    fn.apply(obj,[100,200]); // ->call在给fn传递参数的时候，是一个个传递值的，而apply不是一个个传的,而是把要给fn
+    //传递的参数统一放入到一个数组中去
+
+
+    //bind:这个方法在IE6~8下不兼容->bind和call/apply作用类似，都是改变this关键字
+
+    //->预处理：事先把fn的this改变为我们想要的结果，并且把参数也准备好，以后要用到了，直接执行即可
+    var tempFn = fn.bind(obj,1,2); //->只是改变了fn中的this为obj,并且给fn传递了两个参数1,2， 但是此时
+    //并没有把fn这个函数执行；执行bind会有一个返回值，这个返回值tempFn就是我们把fn的this改变后的那个结果
+    tempFn();
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+
+    //-> arguments.sort(); // -> Uncaught TypeError:arguments.sort is not a function  arguments是一个类数组，它不是数组，不能直接使用数组的方法
+
+
+    /*
+    function avgFn() {
+        //1.将类数组转化为数组
+        var arr = [];
+        for(var i=0;i<arguments.length;i++){
+            arr[arr.length] = arguments[i];
+        }
+        //2.排序
+        arr.sort(function (a,b) {
+            return a-b;
+        })
+        //3.去掉最高分和最低分
+        arr.pop();
+        arr.shift();
+        return (eval(arr.join("+"))/arr.length).toFixed(2);
+    }
+
+
+    var res = avgFn(9.7,9.6,9.4,10,9.9,9.2,9.1);
+    console.log(res);
+
+*/
+
+    //优化
+
+    var arr = [10,11,22];
+    var nearr = arr.slice();  //slice()不添加任何参数是克隆数组
+
+    //模拟slice克隆数组的方法
+    Array.prototype.mySlice = function () {
+        var arr = [];
+        for(var i=0;i<this.length;i++)
+        {
+            arr[arr.length] = this[i];
+        }
+        return arr;
+    }
+
+    arr.mySlice(); //克隆一个数组
+    //对比上面的arguments准换为数组，只需把this转为为arguments即可  --> arr.slice.call(arguments)
+
+
+    function avgFn() {
+        //1.将类数组arguments转化为数组
+        //1)
+        var arr = Array.prototype.slice.call(arguments);
+        //2)
+        var arr = [].slice.call(arguments);
+        //2.排序
+        arr.sort(function (a,b) {
+            return a-b;
+        })
+
+        //3.去掉最高分和最低分
+        arr.pop();
+        arr.shift();
+        return (eval(arr.join("+"))/arr.length).toFixed(2);
+    }
+
+
+    //类数组借用数组方法
+    function avg2Fn() {
+        //借用sort方法
+        Array.prototype.sort.call(arguments,function (a,b) {return a-b;});
+        //借用shift方法
+        [].shift.call(arguments);
+        [].pop.call(arguments);
+        return (eval([].join.call(arguments,"+"))/arguments.length).toFixed(2);
+
+    }
+
+    var res = avg2Fn(9.7,9.6,9.4,10,9.9,9.2,9.1);
+    console.log(res);
+
+
+</script>
+</body>
+</html>
